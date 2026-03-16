@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hustle Kulture | Brunei Youth Entrepreneurship</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            /* Updated to Yellow Theme */
+            --primary: #FACC15; 
+            --primary-dark: #EAB308;
+            --secondary: #000000;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --accent: #FACC15;
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0F172A;
+            --card-bg: #1E293B;
+            --text-main: #F1F5F9;
+            --text-muted: #94A3B8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text-main); 
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Nav */
+        nav {
+            background: var(--card-bg);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
+        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--text-main); display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo i { color: var(--primary); }
+        .logo span { color: var(--text-muted); font-weight: 400; }
+        
+        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .nav-link { font-weight: 600; color: var(--text-muted); cursor: pointer; font-size: 0.95rem; text-decoration: none; transition: var(--transition); }
+        .nav-link:hover, .nav-link.active { color: var(--text-main); border-bottom: 3px solid var(--primary); }
+
+        .level-badge {
+            background: var(--text-main);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 99px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section { display: none; padding: 40px 0; }
+        section.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Quest Cards */
+        .quest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
+        .quest-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            border: 2px solid transparent;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .quest-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .quest-card.locked { opacity: 0.6; filter: grayscale(1); cursor: not-allowed; }
+        .quest-card.completed { border-color: var(--primary); background: linear-gradient(to bottom right, var(--card-bg), #fffbeb); }
+        
+        .level-indicator {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary);
+            color: var(--text-main);
+            padding: 5px 15px;
+            border-bottom-left-radius: var(--radius-md);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .reward-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #FEF3C7;
+            color: #B45309;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        /* Pricing Specific Styles */
+        .price-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid #e2e8f0;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .price-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .price-card.featured { border: 2px solid var(--primary); background: #fffdf5; }
+        .featured-tag {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-main);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f5f9;
+            align-items: center;
+        }
+        .price-row:last-child { border-bottom: none; }
+        .price-val { font-weight: 800; color: var(--text-main); font-size: 1.1rem; }
+        .feature-list { list-style: none; margin-top: 15px; }
+        .feature-list li { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .feature-list li i { color: var(--primary-dark); font-size: 0.8rem; }
+
+        /* Interactive Floor Plan */
+        .map-container {
+            background: #f1f5f9;
+            border-radius: var(--radius-lg);
+            height: 350px;
+            position: relative;
+            margin: 20px 0;
+            border: 2px dashed #cbd5e1;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .map-stall {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border: 3px solid var(--primary);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .map-stall:hover { background: var(--primary); color: var(--text-main); transform: scale(1.15) rotate(2deg); z-index: 10; }
+        .map-stall span { font-size: 0.6rem; margin-top: 2px; }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        .btn-primary { background: var(--primary); color: var(--text-main); }
+        .btn-primary:hover { background: var(--primary-dark); box-shadow: 0 8px 15px rgba(250, 204, 21, 0.4); }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            position: relative;
+            animation: zoomIn 0.3s ease;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1e293b;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            transform: translateY(200%);
+            transition: transform 0.3s;
+            z-index: 9999;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .hidden { display: none !important; }
+
+        /* Certificate Styles */
+        .cert-container {
+            background: white;
+            padding: 40px;
+            border: 15px solid var(--primary);
+            outline: 5px solid #000;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cert-header { font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 2.2rem; margin-bottom: 20px; color: black; border-bottom: 2px solid black; padding-bottom: 10px; }
+        .cert-body { font-size: 1.1rem; line-height: 1.8; color: #334155; }
+        .cert-name { font-size: 2.5rem; font-weight: 900; color: var(--text-main); margin: 20px 0; text-decoration: underline; text-decoration-color: var(--primary); }
+        .cert-footer { display: flex; justify-content: space-between; margin-top: 50px; align-items: flex-end; }
+        .signature { border-top: 2px solid #64748B; width: 180px; padding-top: 10px; font-weight: 700; font-size: 0.8rem; }
+        .cert-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.05; font-size: 8rem; pointer-events: none; }
+        
+        /* Highlight text color */
+        .text-primary { color: var(--primary-dark) !important; }
+    </style>
+</head>
+<body>
+
+    <div id="toast"></div>
+
+    <nav>
+        <div class="container nav-inner">
+            <div class="logo" onclick="navigateTo('home')">
+                <i class="fas fa-rocket"></i> HUSTLE<span>KULTURE</span>
+            </div>
+            <div class="nav-links">
+                <a class="nav-link active" data-page="home" onclick="navigateTo('home')">Utama</a>
+                <a class="nav-link" data-page="learning" onclick="navigateTo('learning')">Quest Map</a>
+                <a class="nav-link" data-page="events" onclick="navigateTo('events')">Events</a>
+                <a class="nav-link" data-page="marketing" onclick="navigateTo('marketing')">Vendors</a>
+                <a class="nav-link" data-page="pricing" onclick="navigateTo('pricing')">Harga</a>
+            </div>
+            <div id="user-stats" class="hidden" style="display:flex; gap:15px; align-items:center;">
+                <div class="level-badge" id="rank-badge"><i class="fas fa-medal"></i> <span id="user-rank-label">PELAJAR</span></div>
+                <div style="font-weight: 800; color:var(--text-main)" id="xp-display">0 XP</div>
+            </div>
+            <button id="auth-btn" class="btn btn-primary" onclick="openModal('auth-modal')">Masuk Log</button>
+        </div>
+    </nav>
+
+    <!-- Page: Home -->
+    <section id="home" class="active">
+        <div class="container" style="text-align: center; padding: 80px 0;">
+            <div style="display:inline-block; background:rgba(250, 204, 21, 0.15); color:var(--text-main); padding: 8px 20px; border-radius: 99px; font-weight: 700; margin-bottom: 20px; font-size: 0.9rem; border: 1px solid var(--primary);">
+                🇧🇳 Memperkasa Belia Brunei Berbisnes
+            </div>
+            <h1 style="font-size: 3.5rem; margin-bottom: 20px; line-height: 1.1;">Bisnes Kitani, <span style="background: var(--primary); padding: 0 10px;">Hustle</span> Kitani</h1>
+            <p style="font-size: 1.25rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 40px;">Brunei's go-to platform for Gen Z founders. Level up your business skills, earn certificates, and start selling at school pop-ups.</p>
+            <div style="display: flex; gap: 20px; justify-content: center;">
+                <button class="btn btn-primary" onclick="navigateTo('learning')">Liat Quest Map</button>
+                <button class="btn" style="background:white; border:2px solid var(--text-main);" onclick="navigateTo('pricing')">Liat Harga</button>
+            </div>
+            <div style="margin-top: 60px; display: flex; justify-content: center; gap: 40px; color: var(--text-muted); font-weight: 600;">
+                <span><i class="fas fa-check-circle text-primary"></i> Ngam for MSME</span>
+                <span><i class="fas fa-check-circle text-primary"></i> Mentor Lokal</span>
+                <span><i class="fas fa-check-circle text-primary"></i> Fokus Halal</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page: Pricing -->
+    <section id="pricing">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Investment Untuk Bisnes Mu</h2>
+                <p style="color:var(--text-muted)">Pilih market yang ngam dengan stage bisnes mu di Brunei ani.</p>
+            </div>
+
+            <div class="quest-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+                
+                <!-- Student Market -->
+                <div class="price-card">
+                    <div style="margin-bottom: 25px;">
+                        <span style="background:rgba(0, 0, 0, 0.05); color:var(--text-main); padding:5px 12px; border-radius:99px; font-size:0.75rem; font-weight:800; text-transform: uppercase;">School Level</span>
+                        <h3 style="font-size: 1.8rem; margin-top:10px;">Student Market</h3>
+                        <p style="color:var(--text-muted); font-size:0.9rem;">Ideal for students starting small in school pop-ups.</p>
+                    </div>
+                    
+                    <div class="price-row">
+                        <span style="font-weight:600;">Consultation <small style="display:block; font-weight:400; color:var(--text-muted)">One-time fee</small></span>
+                        <span class="price-val">BND 15</span>
+                    </div>
+                    <div class="price-row">
+                        <span style="font-weight:600;">Event Fee <small style="display:block; font-weight:400; color:var(--text-muted)">Per school pop-up</small></span>
+                        <span class="price-val">BND 15</span>
+                    </div>
+
+                    <div style="flex-grow: 1;"></div>
+                    <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:30px;" onclick="showToast('Jom join School Hustle!')">Pilih Plan Student</button>
+                </div>
+
+                <!-- Community Access - FEATURED -->
+                <div class="price-card featured">
+                    <div class="featured-tag">Paling Popular</div>
+                    <div style="margin-bottom: 25px;">
+                        <span style="background:var(--primary); color:var(--text-main); padding:5px 12px; border-radius:99px; font-size:0.75rem; font-weight:800; text-transform: uppercase;">Membership</span>
+                        <h3 style="font-size: 1.8rem; margin-top:10px;">Community Access</h3>
+                        <p style="color:var(--text-muted); font-size:0.9rem;">Monthly subscription for serious local founders.</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 15px 0; border-bottom: 1px solid #f1f5f9;">
+                        <span style="font-size: 2.5rem; font-weight: 900; color: var(--text-main);">BND 35</span>
+                        <span style="color: var(--text-muted);">/bulan</span>
+                    </div>
+
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> 1st Priority in External Pop-Ups</li>
+                        <li><i class="fas fa-check-circle"></i> Full Access to Learning Material</li>
+                        <li><i class="fas fa-check-circle"></i> Private Group Chat Community</li>
+                        <li><i class="fas fa-check-circle"></i> Access to Virtual Workshops</li>
+                    </ul>
+
+                    <div style="flex-grow: 1;"></div>
+                    <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:30px;" onclick="showToast('Welcome to the Hustle Community!')">Join Community</button>
+                </div>
+
+                <!-- Youth Market -->
+                <div class="price-card">
+                    <div style="margin-bottom: 25px;">
+                        <span style="background:rgba(245, 158, 11, 0.1); color:#D97706; padding:5px 12px; border-radius:99px; font-size:0.75rem; font-weight:800; text-transform: uppercase;">External Level</span>
+                        <h3 style="font-size: 1.8rem; margin-top:10px;">Youth Market</h3>
+                        <p style="color:var(--text-muted); font-size:0.9rem;">Expand your business beyond the school gates.</p>
+                    </div>
+                    
+                    <div class="price-row">
+                        <span style="font-weight:600;">Consultation <small style="display:block; font-weight:400; color:var(--text-muted)">One-time fee</small></span>
+                        <span class="price-val">BND 25</span>
+                    </div>
+                    <div class="price-row">
+                        <span style="font-weight:600;">Event Fee <small style="display:block; font-weight:400; color:var(--text-muted)">Per external pop-up</small></span>
+                        <span class="price-val">BND 25</span>
+                    </div>
+
+                    <div style="flex-grow: 1;"></div>
+                    <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:30px; background:var(--text-main); color: var(--primary);" onclick="showToast('Scaling to Youth Market!')">Pilih Plan Youth</button>
+                </div>
+
+            </div>
+
+            <div style="margin-top: 40px; text-align:center; background: #f1f5f9; padding: 20px; border-radius: 15px;">
+                <p style="font-size: 0.85rem; color: var(--text-muted);"><i class="fas fa-info-circle"></i> Bayaran konsultasi adalah <strong>one-time</strong>. Event fee bergantung kepada lokasi pop-up.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page: Learning Hub (A-Z Quest Map) -->
+    <section id="learning">
+        <div class="container">
+            <div style="display:flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
+                <div>
+                    <h2 style="font-size: 2.2rem;">A-Z Entrepreneur Quest</h2>
+                    <p style="color:var(--text-muted)">Abiskan levels untuk dapat National Youth Founder Certificate!</p>
+                </div>
+                <div id="map-progress" style="text-align: right;">
+                    <div style="font-weight: 800; margin-bottom: 8px;">Progress Nasional: <span id="pct-label" style="color:var(--text-main)">0%</span></div>
+                    <div style="width: 250px; height: 12px; background: #E2E8F0; border-radius: 6px; overflow: hidden; border: 1px solid #cbd5e1;">
+                        <div id="progress-fill" style="width: 0%; height: 100%; background: var(--primary); transition: 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);"></div>
+                    </div>
+                    <button id="claim-cert-btn" class="btn btn-primary" style="margin-top: 15px; font-size: 0.8rem; background: var(--text-main); color: var(--primary); display: none;" onclick="generateCertificate()">
+                        <i class="fas fa-award"></i> TUNTUT SIJIL NASIONAL
+                    </button>
+                </div>
+            </div>
+
+            <div class="quest-grid" id="quest-container">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Page: Events -->
+    <section id="events">
+        <div class="container">
+            <h2 style="font-size: 2.2rem; margin-bottom: 10px;">Event & Bootcamp</h2>
+            <p style="color:var(--text-muted); margin-bottom: 30px;">School workshops and pop-up markets di serata 4 daerah.</p>
+            
+            <div style="display:flex; gap:12px; margin-bottom: 40px; background: white; padding: 8px; border-radius: 15px; width: fit-content; box-shadow: var(--shadow);">
+                <button class="btn btn-primary" id="btn-bootcamp" onclick="filterEvents('bootcamp')">Workshop</button>
+                <button class="btn" style="background:transparent" id="btn-popup" onclick="filterEvents('popup')">Pop-up Markets</button>
+                <button class="btn" style="background:transparent" id="btn-meetup" onclick="filterEvents('meetup')">Networking</button>
+            </div>
+
+            <div class="quest-grid" id="event-container">
+                <!-- Injected -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Page: Marketing -->
+    <section id="marketing">
+        <div class="container">
+            <h2 style="font-size: 2.2rem;">Youth Vendor Directory</h2>
+            <p style="color:var(--text-muted); margin-bottom: 30px;">Support local student entrepreneurs and MSMEs kitani.</p>
+            <div class="quest-grid" id="market-container">
+                <!-- Injected -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Containers -->
+    <div id="quest-modal" class="modal-overlay" onclick="closeModals(event)">
+        <div class="modal">
+            <div id="quest-content"></div>
+        </div>
+    </div>
+
+    <div id="cert-modal" class="modal-overlay" onclick="closeModals(event)">
+        <div class="modal" style="max-width: 900px; padding: 20px; background: #334155;">
+            <div id="cert-content"></div>
+            <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                <button class="btn" style="background:white; color:black;" onclick="window.print()"><i class="fas fa-print"></i> Simpan PDF</button>
+                <button class="btn btn-primary" onclick="closeModals()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="auth-modal" class="modal-overlay" onclick="closeModals(event)">
+        <div class="modal">
+            <h2 style="margin-bottom: 10px;">Selamat Datang!</h2>
+            <p style="color:var(--text-muted); margin-bottom: 25px;">Jom start journey bisnes mu di Brunei hari ani.</p>
+            <div style="margin-bottom: 15px;">
+                <label style="font-weight:700; font-size: 0.8rem; display:block; margin-bottom:5px;">NAMA PENUH (IKUT IC)</label>
+                <input type="text" id="user-name" placeholder="E.g. Ahmad Dani" style="width: 100%; padding:14px; border-radius:10px; border:2px solid #eee; outline:none;">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="font-weight:700; font-size: 0.8rem; display:block; margin-bottom:5px;">DAERAH</label>
+                <select id="user-district" style="width: 100%; padding:14px; border-radius:10px; border:2px solid #eee;">
+                    <option>Brunei-Muara</option>
+                    <option>Tutong</option>
+                    <option>Belait</option>
+                    <option>Temburong</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" style="width: 100%; justify-content:center;" onclick="login()">Jom Start!</button>
+        </div>
+    </div>
+
+    <script>
+        const COURSES = [
+            { id: 'A', title: "Aspirasi (Idea Spark)", desc: "Cari business ideas yang ngam with market Brunei.", xp: 100, icon: "lightbulb", status: "unlocked" },
+            { id: 'B', title: "Brunei Branding", desc: "Build brand identity pakai local heritage kitani.", xp: 150, icon: "palette", status: "locked" },
+            { id: 'C', title: "Cakap (Pitching)", desc: "Latih cara bercakap dengan buyers di Night Market.", xp: 200, icon: "microphone", status: "locked" },
+            { id: 'D', title: "Digital Brunei", desc: "Set up IG, TikTok, and Pocket payment methods.", xp: 250, icon: "mobile-alt", status: "locked" },
+            { id: 'E', title: "Ekonomi (Finance)", desc: "Manage BND and faham profit margin bisnes mu.", xp: 300, icon: "wallet", status: "locked" },
+            { id: 'F', title: "Fokus Halal", desc: "Basics of Brunei Halal certification and standards.", xp: 400, icon: "check-double", status: "locked" },
+            { id: 'G', title: "Government MSME", desc: "Faham support dari DARe (Darussalam Enterprise).", xp: 300, icon: "building", status: "locked" },
+            { id: 'H', title: "Hustle Hard", desc: "Scale school project mu jadi real business.", xp: 500, icon: "chart-line", status: "locked" }
+        ];
+
+        const EVENTS = {
+            bootcamp: [
+                { title: "Hustle Workshop: Muara", school: "Maktab Sains", date: "20-21 March", status: "Open", district: "Muara" },
+                { title: "Hustle Workshop: Tutong", school: "Sayyidina Othman Secondary", date: "25-26 March", status: "Open", district: "Tutong" },
+                { title: "Hustle Workshop: Belait", school: "St. James School", date: "1-2 April", status: "Full", district: "Belait" }
+            ],
+            popup: [
+                { title: "Ramadhan Youth Market", school: "Bandar CBD", date: "April 05", hasMap: true, district: "Muara" }
+            ],
+            meetup: [
+                { title: "Founder Kopi Chat", school: "The Hub Gadong", date: "Every Friday", status: "Join", district: "Muara" }
+            ]
+        };
+
+        const VENDORS = [
+            { id: "S1", name: "Afiq's Tech-Fix", cat: "Electronics", products: ["Screen Protector", "Phone Case"], bio: "Year 11 Student from PTE Sengkurong." },
+            { id: "S2", name: "Dapur Maya", cat: "Food & Bev", products: ["Pandan Cheese", "Tapak Kuda"], bio: "Home-baker from Tutong." },
+            { id: "S3", name: "Seni Brunei", cat: "Art", products: ["Traditional Stickers", "Prints"], bio: "Digital artist exploring MIB themes." }
+        ];
+
+        let state = {
+            user: null,
+            district: "Brunei-Muara",
+            xp: 0,
+            completed: [],
+            rank: "PELAJAR"
+        };
+
+        function init() {
+            renderQuests();
+            filterEvents('bootcamp');
+            loadState();
+        }
+
+        function renderQuests() {
+            const container = document.getElementById('quest-container');
+            container.innerHTML = COURSES.map(c => {
+                const isCompleted = state.completed.includes(c.id);
+                return `
+                <div class="quest-card ${c.status} ${isCompleted ? 'completed' : ''}" onclick="startQuest('${c.id}')">
+                    <div class="level-indicator">${c.id}</div>
+                    <i class="fas fa-${c.icon} fa-3x" style="color:${isCompleted ? 'var(--primary-dark)' : 'var(--text-muted)'}; margin-bottom:15px;"></i>
+                    <h3 style="font-size: 1.1rem;">${c.title}</h3>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin: 8px 0; height: 40px; overflow:hidden;">${c.desc}</p>
+                    <div style="display:flex; gap:8px;">
+                        <span class="reward-badge"><i class="fas fa-bolt"></i> ${c.xp} XP</span>
+                        <span class="reward-badge"><i class="fas fa-certificate"></i> Cert</span>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function startQuest(id) {
+            const quest = COURSES.find(c => c.id === id);
+            if (quest.status === 'locked') {
+                showToast("Abiskan level sebalumnya dulu untuk unlock " + quest.title);
+                return;
+            }
+            
+            const content = document.getElementById('quest-content');
+            content.innerHTML = `
+                <div style="text-align:center;">
+                    <div style="font-size:3.5rem; color:var(--text-main); margin-bottom:15px; font-weight:900; background:var(--primary); display:inline-block; width:80px; height:80px; border-radius:50%; line-height:80px;">${id}</div>
+                    <h2 style="text-transform:uppercase;">LEVEL ${id}: ${quest.title}</h2>
+                    <p style="margin:20px 0; color:var(--text-muted);">${quest.desc}</p>
+                    <div style="background:#f8fafc; border: 2px solid #e2e8f0; padding:25px; border-radius:15px; margin-bottom:25px; text-align:left;">
+                        <h4 style="margin-bottom:10px;"><i class="fas fa-tasks"></i> CABARAN BRUNEI</h4>
+                        <p style="font-size:0.9rem;">Identify satu produk lokal (e.g., Ambuyat, kraf tangan) and terangkan macam mana kan memodenkan produk atu for Gen Z buyers di Brunei.</p>
+                        <textarea placeholder="Tulis jawapan mu di sini..." style="width:100%; height:80px; margin-top:15px; border-radius:8px; border:1px solid #ddd; padding:10px;"></textarea>
+                    </div>
+                    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="completeQuest('${id}')">Hantar & Ambil XP</button>
+                </div>
+            `;
+            openModal('quest-modal');
+        }
+
+        function completeQuest(id) {
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#FACC15', '#EAB308', '#000000'] });
+            const quest = COURSES.find(c => c.id === id);
+            if (!state.completed.includes(id)) {
+                state.xp += quest.xp;
+                state.completed.push(id);
+            }
+            
+            const idx = COURSES.findIndex(c => c.id === id);
+            if (COURSES[idx+1]) COURSES[idx+1].status = 'unlocked';
+            
+            updateUI();
+            closeModals();
+            renderQuests();
+            saveState();
+            showToast(`Mabruk! Level ${id} Ngam! +${quest.xp} XP`);
+        }
+
+        function generateCertificate() {
+            const certContent = document.getElementById('cert-content');
+            const date = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+            
+            certContent.innerHTML = `
+                <div class="cert-container">
+                    <div class="cert-watermark">HUSTLE</div>
+                    <div class="cert-header">NATIONAL YOUTH FOUNDER CERTIFICATE</div>
+                    <div class="cert-body">
+                        <p>This is to certify that</p>
+                        <div class="cert-name">${state.user || 'HAFIZZAN KADIR'}</div>
+                        <p>has successfully mastered the <strong>A-Z Entrepreneurship Quest</strong>,</p>
+                        <p>demonstrating exceptional competence in Ideation, Local Branding, Pitching, Digital Literacy, Finance, and Halal Standards within the context of</p>
+                        <p style="font-weight: 800; font-size: 1.3rem; margin: 10px 0;">NEGARA BRUNEI DARUSSALAM</p>
+                    </div>
+                    <div class="cert-footer">
+                        <div class="signature">
+                            <p>Verification Code: HK-BN-${Math.floor(1000 + Math.random() * 9000)}</p>
+                            <p>ID: ${state.district}</p>
+                        </div>
+                        <div style="text-align:center">
+                            <i class="fas fa-rocket fa-2x" style="color:var(--text-main); margin-bottom:5px;"></i>
+                            <p style="font-size:0.6rem; font-weight:900;">HUSTLE KULTURE BRUNEI</p>
+                        </div>
+                        <div class="signature">
+                            <p>${date}</p>
+                            <p>Official Date Issued</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            openModal('cert-modal');
+            confetti({ particleCount: 200, spread: 100, origin: { y: 0.5 }, colors: ['#FACC15', '#000000'] });
+        }
+
+        function filterEvents(type) {
+            document.querySelectorAll('#events button').forEach(b => {
+                b.classList.remove('btn-primary');
+                b.style.background = 'transparent';
+            });
+            const activeBtn = document.getElementById('btn-' + type);
+            if (activeBtn) {
+                activeBtn.classList.add('btn-primary');
+                activeBtn.style.background = 'var(--primary)';
+            }
+
+            const container = document.getElementById('event-container');
+            const data = EVENTS[type] || [];
+            container.innerHTML = data.map(e => `
+                <div class="quest-card">
+                    <span class="badge" style="background:var(--primary); color:var(--text-main); padding:4px 10px; border-radius:5px; font-size:0.7rem; font-weight:700;">${e.district}</span>
+                    <h3 style="margin: 10px 0 5px;">${e.title}</h3>
+                    <p style="font-size:0.85rem; color:var(--text-muted);"><i class="fas fa-school"></i> ${e.school}</p>
+                    <p style="font-size:0.85rem; color:var(--text-muted);"><i class="fas fa-calendar-alt"></i> ${e.date}</p>
+                    
+                    ${e.hasMap ? `
+                        <div class="map-container">
+                            <div class="map-stall" style="top:30px; left:30px;" onclick="showVendor('S1')">S1 <span>Tech</span></div>
+                            <div class="map-stall" style="top:30px; left:110px;" onclick="showVendor('S2')">S2 <span>Bakes</span></div>
+                            <div class="map-stall" style="top:110px; left:30px;" onclick="showVendor('S3')">S3 <span>Art</span></div>
+                            <div style="position:absolute; bottom:15px; width:100%; text-align:center; font-size:0.7rem; font-weight:700; color:#64748b;">TEKAN STALL UNTUK LIAT KATALOG</div>
+                        </div>
+                    ` : `<button class="btn btn-primary" style="margin-top:15px; width:100%; justify-content:center;" onclick="showToast('Pendaftaran sudah dihantar!')" ${e.status === 'Full' ? 'disabled' : ''}>${e.status === 'Full' ? 'Pendaftaran Penuh' : 'Daftar Sekarang'}</button>`}
+                </div>
+            `).join('');
+        }
+
+        function showVendor(id) {
+            const v = VENDORS.find(ven => ven.id === id);
+            const content = document.getElementById('quest-content');
+            content.innerHTML = `
+                <div style="text-align:center;">
+                    <i class="fas fa-store-alt fa-4x" style="color:var(--primary); margin-bottom:20px; background:var(--text-main); padding:20px; border-radius:50%;"></i>
+                    <h2>${v.name}</h2>
+                    <p style="font-weight:700; color:var(--text-main); background:var(--primary); display:inline-block; padding:2px 10px; border-radius:5px;">${v.cat}</p>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin: 15px 0;">${v.bio}</p>
+                    <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; text-align:left; padding:20px;">
+                        <h4 style="margin-bottom:10px;">ADA HARI ANI:</h4>
+                        <ul style="list-style:none;">
+                            ${v.products.map(p => `<li style="padding:10px 0; border-bottom:1px solid #eee; display:flex; justify-content:space-between;"><span>${p}</span> <span style="font-weight:800;">BND 5.00</span></li>`).join('')}
+                        </ul>
+                    </div>
+                    <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:20px;" onclick="closeModals()">Tutup</button>
+                </div>
+            `;
+            openModal('quest-modal');
+        }
+
+        function navigateTo(pageId) {
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            const link = document.querySelector(`[data-page="${pageId}"]`);
+            if (link) link.classList.add('active');
+            if (pageId === 'marketing') renderMarketplace();
+            window.scrollTo(0, 0);
+        }
+
+        function renderMarketplace() {
+            const container = document.getElementById('market-container');
+            container.innerHTML = VENDORS.map(v => `
+                <div class="quest-card">
+                    <div style="height:120px; background:var(--primary); opacity:0.3; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:15px;">
+                        <i class="fas fa-store fa-3x" style="color:var(--text-main);"></i>
+                    </div>
+                    <h3>${v.name}</h3>
+                    <p class="reward-badge" style="background:var(--text-main); color:var(--primary);">${v.cat}</p>
+                    <p style="font-size:0.8rem; margin:10px 0;">${v.bio}</p>
+                    <button class="btn btn-outline" style="border:2px solid #eee; width:100%; justify-content:center;" onclick="showVendor('${v.id}')">Liat Kedai</button>
+                </div>
+            `).join('');
+        }
+
+        function updateUI() {
+            document.getElementById('xp-display').innerText = `${state.xp} XP`;
+            const pct = Math.floor((state.completed.length / COURSES.length) * 100);
+            document.getElementById('pct-label').innerText = `${pct}%`;
+            document.getElementById('progress-fill').style.width = `${pct}%`;
+
+            if (pct === 100) {
+                document.getElementById('claim-cert-btn').style.display = 'inline-flex';
+            }
+
+            if (state.xp > 400) state.rank = "USAHAWAN MUDA";
+            if (state.xp > 1000) state.rank = "ELITE FOUNDER";
+            document.getElementById('user-rank-label').innerText = state.rank;
+        }
+
+        function login() {
+            const name = document.getElementById('user-name').value;
+            const dist = document.getElementById('user-district').value;
+            if (!name) return;
+            state.user = name;
+            state.district = dist;
+            document.getElementById('user-stats').classList.remove('hidden');
+            document.getElementById('auth-btn').innerText = 'Keluar Log';
+            closeModals();
+            showToast(`Ngam, ${name}! Level A sudah terbuka.`);
+            saveState();
+        }
+
+        function saveState() { localStorage.setItem('hk_brunei_save_yellow', JSON.stringify(state)); }
+        function loadState() {
+            const saved = localStorage.getItem('hk_brunei_save_yellow');
+            if (saved) {
+                state = JSON.parse(saved);
+                updateUI();
+                state.completed.forEach(id => {
+                    const idx = COURSES.findIndex(c => c.id === id);
+                    if (COURSES[idx+1]) COURSES[idx+1].status = 'unlocked';
+                });
+                renderQuests();
+                if (state.user) {
+                    document.getElementById('user-stats').classList.remove('hidden');
+                    document.getElementById('auth-btn').innerText = 'Keluar Log';
+                }
+            }
+        }
+
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModals(e) { 
+            if (e && e.target.classList.contains('modal-overlay') || !e) {
+                document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
+            }
+        }
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.style.transform = 'translateY(0)';
+            setTimeout(() => t.style.transform = 'translateY(200%)', 3000);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
