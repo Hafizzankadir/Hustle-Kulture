@@ -455,8 +455,10 @@
         .modal {
             background: var(--card-bg);
             border-radius: var(--radius-lg);
-            width: 100%;
+            width: 95%;
             max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
             padding: 40px;
             position: relative;
             animation: zoomIn 0.3s ease;
@@ -622,8 +624,348 @@
             color: var(--primary-dark) !important;
         }
 
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 5px;
+            transition: var(--transition);
+        }
+
+        @media (min-width: 768px) {
+            .hamburger-btn {
+                display: none;
+            }
+        }
+
+        @media (min-width: 992px) {
+            #quest-modal .modal {
+                max-width: 1100px !important;
+                width: 90% !important;
+            }
+            .split-pane {
+                display: grid;
+                grid-template-columns: 320px 1fr;
+                gap: 40px;
+                align-items: start;
+            }
+            .vendor-info-sidebar {
+                position: sticky;
+                top: 0;
+            }
+        }
+
+
+        /* Vendor Profile Styles */
+        .vendor-hero {
+            background: var(--text-main);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vendor-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            opacity: 0.1;
+            z-index: 0;
+        }
+        .vendor-logo-large {
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            color: var(--text-main);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 20px rgba(250, 204, 21, 0.3);
+        }
+        .vendor-section-title {
+            font-size: 1.2rem;
+            margin: 30px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .vendor-catalogue {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        @media (min-width: 768px) {
+            .vendor-catalogue {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 20px;
+            }
+        }
+        .product-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 15px;
+            transition: var(--transition);
+        }
+        .product-card h4 {
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+        .product-price {
+            font-weight: 800;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+        .btn-buy {
+            width: 100%;
+            background: #000;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            justify-content: center;
+            border: 1px solid #000;
+        }
+        .btn-buy:hover {
+            background: white;
+            color: #000;
+        }
+        .product-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+        .product-icon {
+            width: 45px;
+            height: 45px;
+            background: #f8fafc;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+        }
+        .promo-banner {
+            background: #fffbeb;
+            border: 2px dashed var(--primary);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #b45309;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .vendor-contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .contact-item {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .contact-item i {
+            color: var(--primary-dark);
+            width: 20px;
+            text-align: center;
+        }
+        .btn-whatsapp-main {
+            background: #25D366;
+            color: white;
+            width: 100%;
+            justify-content: center;
+            margin-top: 15px;
+            font-weight: 800;
+            height: 48px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+        .btn-whatsapp-main:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 600px) {
+            .modal {
+                padding: 25px 15px;
+            }
+            .vendor-hero {
+                padding: 30px 15px;
+                border-radius: 15px;
+            }
+            .vendor-logo-large {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            .vendor-contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .vendor-catalogue {
+                grid-template-columns: 1fr;
+            }
+            .vendor-section-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Premium Vendor Marketplace Redesign */
+        .marketplace-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .category-filters {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            scrollbar-width: none;
+        }
+        .category-filters::-webkit-scrollbar { display: none; }
+        
+        .filter-chip {
+            padding: 8px 20px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+        .filter-chip.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--text-main);
+        }
+
+        .vendor-store-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #f1f5f9;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+        .vendor-store-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            border-color: var(--primary);
+        }
+        .store-banner {
+            height: 120px;
+            background: var(--text-main);
+            position: relative;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(250, 204, 21, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(250, 204, 21, 0.1) 0%, transparent 20%);
+        }
+        .store-logo-overlay {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border: 4px solid white;
+            border-radius: 15px;
+            position: absolute;
+            bottom: -30px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            box-shadow: var(--shadow-sm);
+        }
+        .store-content {
+            padding: 40px 20px 20px;
+        }
+        .store-category {
+            font-size: 0.65rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+        .store-description {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 10px 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .store-badges {
+            display: flex;
+            gap: 5px;
+            margin-top: 15px;
+        }
+        .s-badge {
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: #f1f5f9;
+            font-weight: 700;
+        }
+
+        /* Fluid Typography Enhancements */
+        h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+        h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+        h3 { font-size: clamp(1.1rem, 3vw, 1.5rem); }
+
         @media (max-width: 992px) {
             .spotlight-card {
+
+
+
+
+
+
                 grid-template-columns: 1fr;
                 text-align: center;
                 gap: 30px;
@@ -642,8 +984,170 @@
         }
 
         @media (max-width: 768px) {
+            /* Certificate Responsiveness */
+            .cert-container {
+                padding: 20px !important;
+                border: 8px solid var(--primary) !important;
+                outline: 3px solid #000 !important;
+                max-width: 100% !important;
+            }
+            .cert-header {
+                font-size: 1.4rem !important;
+            }
+            .cert-name {
+                font-size: 1.8rem !important;
+            }
+            .cert-body {
+                font-size: 0.9rem !important;
+            }
+            .cert-watermark {
+                font-size: 4rem !important;
+            }
+            .signature {
+                width: 120px !important;
+            }
+
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+            }
+
+            .nav-links.mobile-active {
+                display: flex;
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: 10px 0;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            }
+
+            .nav-link:hover,
+            .nav-link.active {
+                border-bottom: 3px solid var(--primary);
+                padding-left: 10px;
+            }
+
+            .hamburger-btn {
+                display: block;
+            }
+
+            #auth-btn {
+                padding: 8px 16px;
+                font-size: 0.85rem;
+            }
+
+            /* Responsive Hero */
+            #home-public .container {
+                padding: 40px 20px !important;
+            }
+
+            #home-public h1 {
+                font-size: 2.2rem !important;
+            }
+
+            #home-public p {
+                font-size: 1rem !important;
+            }
+
+            /* Responsive Spotlight */
+            .spotlight-quote {
+                font-size: 1.1rem !important;
+            }
+
+            .spotlight-card {
+                padding: 30px 20px !important;
+            }
+
+            /* Modal Responsiveness */
+            .modal {
+                padding: 25px !important;
+                margin: 10px;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            /* Pricing Grid */
+            .price-card {
+                padding: 25px !important;
+            }
+
+            /* Dashboard Banner */
+            #home-dashboard .container > div:first-child {
+                padding: 30px 20px !important;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 15px;
+            }
+            #home-dashboard .container > div:first-child h2 {
+                line-height: 1.2;
+                font-size: 1.8rem !important;
+            }
+            #home-dashboard .container > div:first-child > div:last-child {
+                width: 100%;
+            }
+
+            .quest-grid-header {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 10px !important;
+            }
+
+            /* Quest Map Progress */
+            #map-progress {
+                margin-top: 15px;
+                width: 100%;
+                text-align: left !important;
+            }
+
+            #map-progress > div:nth-child(2) {
+                width: 100% !important;
+            }
+
+            /* Builder Grid */
+            .builder-wrapper {
+                padding: 0 15px;
+            }
+            .builder-card {
+                padding: 20px !important;
+            }
+            .header h2 {
+                font-size: 1.25rem !important;
+            }
+
+            /* Site Builder */
+            #site-builder .container > div {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2rem;
+            }
+            .logo span {
+                display: none;
+            }
+            #user-stats {
+                gap: 8px !important;
+            }
+            .level-badge {
+                padding: 4px 10px !important;
+                font-size: 0.7rem !important;
+            }
+            #xp-display {
+                font-size: 0.75rem !important;
             }
         }
     </style>
@@ -672,7 +1176,12 @@
                         id="user-rank-label">PELAJAR</span></div>
                 <div style="font-weight: 800; color:var(--text-main)" id="xp-display">0 XP</div>
             </div>
-            <button id="auth-btn" class="btn btn-primary" onclick="openModal('auth-modal')">Masuk Log</button>
+            <div class="nav-actions">
+                <button id="auth-btn" class="btn btn-primary" onclick="openModal('auth-modal')">Masuk Log</button>
+                <button class="hamburger-btn" id="hamburger-menu" onclick="toggleMobileNav()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -817,7 +1326,7 @@
 
                 <!-- EMBEDDED QUEST MAP -->
                 <div style="margin-bottom: 40px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div class="quest-grid-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                         <h3 style="font-size: 1.5rem;">A-Z Entrepreneur Quest Kitani</h3>
                         <button id="dash-claim-cert-btn" class="btn btn-primary" style="font-size: 0.75rem; padding: 8px 15px; display: none;" onclick="generateCertificate()">
                              <i class="fas fa-award"></i> TUNTUT SIJIL
@@ -830,7 +1339,7 @@
 
                 <!-- Recent Activity / Saved Blueprints -->
                 <div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div class="quest-grid-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                         <h3 style="font-size: 1.5rem;">Blueprint Terkini</h3>
                         <button class="btn btn-outline" style="font-size: 0.8rem; padding: 5px 15px;" onclick="navigateTo('builder')">Liat Semua</button>
                     </div>
@@ -1384,7 +1893,7 @@
     <!-- Page: Learning Hub (A-Z Quest Map) -->
     <section id="learning">
         <div class="container">
-            <div style="display:flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
+            <div class="quest-grid-header" style="display:flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
                 <div>
                     <h2 style="font-size: 2.2rem;">A-Z Entrepreneur Quest</h2>
                     <p style="color:var(--text-muted)">Abiskan levels untuk dapat National Youth Founder Certificate!
@@ -1437,15 +1946,23 @@
 
     <!-- Page: Marketing / Vendors -->
     <section id="marketing">
-        <div class="container">
-            <h2 style="font-size: 2.2rem;">Youth Vendor Directory</h2>
-            <p style="color:var(--text-muted); margin-bottom: 30px;">Support local student entrepreneurs and MSMEs
-                kitani.</p>
+        <div class="container" style="padding-top: 60px;">
+            <div class="marketplace-header">
+                <div>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 5px;">Directory Vendor</h2>
+                    <p style="color:var(--text-muted); font-size: 1.1rem;">Sapot lokal, sokong usahawan muda Brunei.</p>
+                </div>
+            </div>
 
-            <h3 style="margin-bottom:20px; font-size:1.2rem; display:flex; align-items:center; gap:10px;"><i
-                    class="fas fa-store text-primary"></i> Active Stalls</h3>
-            <div class="quest-grid" id="market-container" style="margin-bottom:60px;">
-                <!-- Injected -->
+            <div class="category-filters" id="vendor-filters">
+                <div class="filter-chip active" onclick="filterVendors('All', this)">Semua</div>
+                <div class="filter-chip" onclick="filterVendors('Food & Bev', this)">Makan-Makan</div>
+                <div class="filter-chip" onclick="filterVendors('Electronics', this)">Tech</div>
+                <div class="filter-chip" onclick="filterVendors('Art', this)">Seni</div>
+            </div>
+
+            <div class="quest-grid" id="market-container" style="margin-bottom:80px; margin-top: 40px;">
+                <!-- Stores here -->
             </div>
 
             <!-- Alumni Circle Feature -->
@@ -1840,9 +2357,48 @@
         };
 
         const VENDORS = [
-            { id: "S1", name: "Afiq's Tech-Fix", cat: "Electronics", products: ["Screen Protector", "Phone Case"], bio: "Year 11 Student from PTE Sengkurong." },
-            { id: "S2", name: "Dapur Maya", cat: "Food & Bev", products: ["Pandan Cheese", "Tapak Kuda"], bio: "Home-baker from Tutong." },
-            { id: "S3", name: "Seni Brunei", cat: "Art", products: ["Traditional Stickers", "Prints"], bio: "Digital artist exploring MIB themes." }
+            { 
+                id: "S1", 
+                name: "Afiq's Tech-Fix", 
+                cat: "Electronics", 
+                bio: "Year 11 Student from PTE Sengkurong.",
+                story: "Afiq started fixing phones for his classmates in the school canteen. What began as a hobby evolved into a small business focused on affordable tech repairs and essential accessories for students.",
+                promotions: "Get 20% off all screen protectors this month!",
+                contact: { ig: "@afiq_tech_bn", wa: "+673 8881234", location: "Sengkurong Area / School Pop-ups" },
+                products: [
+                    { name: "Premium Screen Protector", price: "5.00", desc: "Anti-scratch tempered glass for all models.", img: "fas fa-shield-alt" },
+                    { name: "Custom Phone Case", price: "12.00", desc: "Durable cases with unique student-designed prints.", img: "fas fa-mobile-alt" },
+                    { name: "Fast Charging Cable", price: "8.00", desc: "2-meter braided cable for iPhone/Android.", img: "fas fa-bolt" }
+                ]
+            },
+            { 
+                id: "S2", 
+                name: "Dapur Maya", 
+                cat: "Food & Bev", 
+                bio: "Home-baker from Tutong.",
+                story: "Maya learned her grandmother's secret recipes in Tutong. She started Dapur Maya to share the authentic taste of Brunei's favorite cakes with a modern twist, specializing in pandemic-born home deliveries.",
+                promotions: "Special 'Coffee & Cake' Bundle - BND 10.00 only!",
+                contact: { ig: "@dapur_maya.bn", wa: "+673 7174321", location: "Tutong / Delivery Muara" },
+                products: [
+                    { name: "Pandan Cheese Cake", price: "6.50", desc: "Fluffy pandan sponge topped with premium shredded cheese.", img: "fas fa-birthday-cake" },
+                    { name: "Tapak Kuda Classic", price: "5.00", desc: "The iconic Brunei roll with extra chocolate filling.", img: "fas fa-bread-slice" },
+                    { name: "Mini Macarons (6pcs)", price: "8.00", desc: "Assorted local flavors like Gula Melaka and Durian.", img: "fas fa-cookie" }
+                ]
+            },
+            { 
+                id: "S3", 
+                name: "Seni Brunei", 
+                cat: "Art", 
+                bio: "Digital artist exploring MIB themes.",
+                story: "Liyana is a self-taught digital artist who found inspiration in Brunei's rich MIB culture and heritage. Her goal is to bring traditional motifs into the modern digital age through stickers and prints.",
+                promotions: "Buy 3 Stickers, Get 1 Free!",
+                contact: { ig: "@seni_brunei", wa: "+673 8219900", location: "Online / Creative Art Markets" },
+                products: [
+                    { name: "MIB Heritage Sticker Pack", price: "4.00", desc: "5 unique waterproof stickers featuring local motifs.", img: "fas fa-stamps" },
+                    { name: "Sungei Brunei Art Print", price: "15.00", desc: "A4 High-quality print on textured paper.", img: "fas fa-paint-brush" },
+                    { name: "Custom Digital Avatar", price: "25.00", desc: "Hand-drawn digital portrait in Liyana's signature style.", img: "fas fa-user-edit" }
+                ]
+            }
         ];
 
         const MENTORS = [
@@ -2007,22 +2563,90 @@
         function showVendor(id) {
             const v = VENDORS.find(ven => ven.id === id);
             const content = document.getElementById('quest-content');
+            const brandColor = v.cat === 'Electronics' ? '#3b82f6' : (v.cat === 'Food & Bev' ? '#f97316' : '#FACC15');
+            
             content.innerHTML = `
-                <div style="text-align:center;">
-                    <i class="fas fa-store-alt fa-4x" style="color:var(--primary); margin-bottom:20px; background:var(--text-main); padding:20px; border-radius:50%;"></i>
-                    <h2>${v.name}</h2>
-                    <p style="font-weight:700; color:var(--text-main); background:var(--primary); display:inline-block; padding:2px 10px; border-radius:5px;">${v.cat}</p>
-                    <p style="font-size:0.85rem; color:var(--text-muted); margin: 15px 0;">${v.bio}</p>
-                    <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; text-align:left; padding:20px;">
-                        <h4 style="margin-bottom:10px;">ADA HARI ANI:</h4>
-                        <ul style="list-style:none;">
-                            ${v.products.map(p => `<li style="padding:10px 0; border-bottom:1px solid #eee; display:flex; justify-content:space-between;"><span>${p}</span> <span style="font-weight:800;">BND 5.00</span></li>`).join('')}
-                        </ul>
+                <div class="vendor-profile-wrapper">
+                    <div class="split-pane">
+                        <!-- Sidebar: Store Info -->
+                        <div class="vendor-info-sidebar">
+                            <div class="vendor-hero" style="background: ${brandColor}; padding: 30px 15px;">
+                                <div class="vendor-hero-bg" style="opacity: 0.1; background: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
+                                <div class="vendor-logo-large" style="width:70px; height:70px; font-size:1.5rem; background: white; color: ${brandColor}; border: 4px solid rgba(255,255,255,0.3); margin-top:0;">
+                                    <i class="${id.startsWith('S') ? 'fas fa-store' : 'fas fa-rocket'}"></i>
+                                </div>
+                                <h2 style="font-size: 1.5rem; color: white; margin: 15px 0 5px;">${v.name}</h2>
+                                <span class="s-badge" style="background:rgba(255,255,255,0.2); color:white; border:none; font-size:0.6rem;">${v.cat}</span>
+                            </div>
+
+                            <div style="padding: 20px; background: #f8fafc; border-radius: 15px; margin-top: 20px;">
+                                <div class="vendor-section-title" style="margin-top:0; font-size: 1rem;">
+                                    <i class="fas fa-quote-left" style="color: ${brandColor}"></i> Story
+                                </div>
+                                <p style="font-size: 0.85rem; line-height: 1.6; color: var(--text-muted); font-style: italic;">"${v.story}"</p>
+
+                                <div class="vendor-section-title" style="font-size: 1rem;">
+                                    <i class="fas fa-address-card" style="color: ${brandColor}"></i> Hubungi
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:10px; font-size:0.85rem;">
+                                    <div class="contact-item"><i class="fab fa-instagram" style="color: ${brandColor}"></i> ${v.contact.ig}</div>
+                                    <div class="contact-item"><i class="fab fa-whatsapp" style="color: ${brandColor}"></i> ${v.contact.wa}</div>
+                                    <div class="contact-item"><i class="fas fa-map-marker-alt" style="color: ${brandColor}"></i> ${v.contact.location}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main: Products & Promotions -->
+                        <div class="vendor-main-content">
+                            <div class="promo-banner" style="background: ${brandColor}10; border-color: ${brandColor}; color: ${brandColor}; margin-top:0;">
+                                <i class="fas fa-gift"></i>
+                                <span style="font-size:0.9rem; font-weight:700;">PROMO: ${v.promotions}</span>
+                            </div>
+
+                            <div class="vendor-section-title">
+                                <i class="fas fa-shopping-bag" style="color: ${brandColor}"></i> Katalog Produk
+                            </div>
+                            <div class="vendor-catalogue">
+                                ${renderCatalogue(v.products)}
+                            </div>
+
+                            <div style="margin-top: 40px; display: flex; flex-direction: column; gap: 10px;">
+                                <a href="https://wa.me/${v.contact.wa.replace(/\s+/g, '')}" target="_blank" class="btn" style="background: #25D366; color: white; width: 100%; justify-content: center; height: 50px; font-weight: 800; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);">
+                                    <i class="fab fa-whatsapp fa-lg"></i> CHAT DENGAN FOUNDER
+                                </a>
+                                <button class="btn btn-outline" style="width:100%; justify-content:center; height: 50px; border-radius: 12px;" onclick="closeModals()">
+                                    Tutup Profil
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:20px;" onclick="closeModals()">Tutup</button>
                 </div>
             `;
             openModal('quest-modal');
+        }
+
+        function renderCatalogue(products) {
+            // Get the current vendor being rendered from showVendor scope or look it up
+            // For simplicity in this static renderer, we assume the global VENDORS context or pass phone
+            // Let's modify showVendor to pass the phone
+            return products.map(p => {
+                const message = encodeURIComponent(`Hello! I'm interested in buying your "${p.name}" (BND ${p.price}) found on Hustle Kulture.`);
+                const waLink = `https://wa.me/6738616074?text=${message}`; // Using user's requested default for demo, or v.contact.wa
+                
+                return `
+                <div class="product-card">
+                    <div class="product-icon">
+                        <i class="${p.img}"></i>
+                    </div>
+                    <h4>${p.name}</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 10px; height: 32px; overflow: hidden;">${p.desc}</p>
+                    <div class="product-price">BND ${p.price}</div>
+                    <a href="${waLink}" target="_blank" class="btn btn-buy" style="text-decoration:none;">
+                        <i class="fas fa-shopping-cart"></i> Buy Now
+                    </a>
+                </div>
+            `;
+            }).join('');
         }
 
         function navigateTo(pageId) {
@@ -2036,12 +2660,24 @@
             document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            const link = document.querySelector(`[data-page="${pageId}"]`);
-            if (link) link.classList.add('active');
+            const links = document.querySelectorAll(`[data-page="${pageId}"]`);
+            links.forEach(link => link.classList.add('active'));
             if (pageId === 'marketing') renderMarketplace();
             if (pageId === 'mentors') renderMentors();
             if (pageId === 'site-builder') initSiteBuilder();
+            
+            // Close mobile menu if open
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) navLinks.classList.remove('mobile-active');
+            
             window.scrollTo(0, 0);
+        }
+
+        function toggleMobileNav() {
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) {
+                navLinks.classList.toggle('mobile-active');
+            }
         }
 
         function renderMentors() {
@@ -2162,37 +2798,65 @@
             renderMarketplace();
         }
 
+        let currentVendorFilter = 'All';
+
+        function filterVendors(cat, btn) {
+            currentVendorFilter = cat;
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderMarketplace();
+        }
+
         function renderMarketplace() {
             const container = document.getElementById('market-container');
-            let vendorsHTML = VENDORS.map(v => `
-                <div class="quest-card">
-                    <div style="height:120px; background:var(--primary); opacity:0.3; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:15px;">
-                        <i class="fas fa-store fa-3x" style="color:var(--text-main);"></i>
+            const filtered = currentVendorFilter === 'All' 
+                ? VENDORS 
+                : VENDORS.filter(v => v.cat === currentVendorFilter);
+
+            let vendorsHTML = filtered.map(v => `
+                <div class="vendor-store-card" onclick="showVendor('${v.id}')">
+                    <div class="store-banner">
+                        <div class="store-logo-overlay">
+                            <i class="${v.id.startsWith('S') ? 'fas fa-store' : 'fas fa-rocket'}"></i>
+                        </div>
                     </div>
-                    <h3>${v.name}</h3>
-                    <p class="reward-badge" style="background:var(--text-main); color:var(--primary);">${v.cat}</p>
-                    <p style="font-size:0.8rem; margin:10px 0;">${v.bio}</p>
-                    <button class="btn btn-outline" style="border:2px solid #eee; width:100%; justify-content:center;" onclick="showVendor('${v.id}')">Liat Kedai</button>
+                    <div class="store-content">
+                        <div class="store-category">${v.cat}</div>
+                        <h3 style="margin-bottom: 5px;">${v.name}</h3>
+                        <p class="store-description">${v.bio}</p>
+                        <div class="store-badges">
+                            <span class="s-badge">LOKAL</span>
+                            <span class="s-badge" style="background:#fffbeb; color:#b45309;">${v.products.length} PRODUK</span>
+                        </div>
+                        <button class="btn btn-primary" style="width:100%; margin-top:20px; justify-content:center; font-size: 0.8rem; height: 40px;">LIAT KEDAI</button>
+                    </div>
                 </div>
             `).join('');
 
-            if (state.website) {
+            if (state.website && (currentVendorFilter === 'All' || state.website.cat === currentVendorFilter)) {
                 const userSiteHTML = `
-                <div class="quest-card" style="border: 2px solid var(--primary); position:relative;">
-                    <div style="position:absolute; top:-10px; right:10px; background:var(--primary); color:var(--text-main); padding:2px 10px; border-radius:4px; font-size:0.6rem; font-weight:900;">BISNES MU</div>
-                    <div style="height:120px; background:var(--primary); opacity:0.8; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:15px;">
-                        <i class="fas fa-rocket fa-3x" style="color:var(--text-main);"></i>
+                <div class="vendor-store-card" style="border: 2px solid var(--primary);" onclick="navigateTo('site-builder')">
+                    <div class="store-banner" style="background: var(--primary); opacity: 0.9;">
+                        <div style="position:absolute; top:10px; right:10px; background:var(--text-main); color:var(--primary); padding:2px 8px; border-radius:4px; font-size:0.6rem; font-weight:900;">BISNES MU</div>
+                        <div class="store-logo-overlay" style="background:var(--text-main); color:var(--primary);">
+                            <i class="fas fa-rocket"></i>
+                        </div>
                     </div>
-                    <h3>${state.website.name}</h3>
-                    <p class="reward-badge" style="background:var(--primary); color:var(--text-main);">${state.website.cat}</p>
-                    <p style="font-size:0.8rem; margin:10px 0;">${state.website.bio}</p>
-                    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="navigateTo('site-builder')">Edit Website</button>
+                    <div class="store-content">
+                        <div class="store-category">${state.website.cat}</div>
+                        <h3 style="margin-bottom: 5px;">${state.website.name}</h3>
+                        <p class="store-description">${state.website.bio}</p>
+                        <div class="store-badges">
+                            <span class="s-badge" style="background:var(--primary); color:var(--text-main);">OWNER</span>
+                        </div>
+                        <button class="btn btn-primary" style="width:100%; margin-top:20px; justify-content:center; font-size: 0.8rem; height: 40px; background:var(--text-main); color:white;">EDIT WEBSITE</button>
+                    </div>
                 </div>
                 `;
                 vendorsHTML = userSiteHTML + vendorsHTML;
             }
 
-            container.innerHTML = vendorsHTML;
+            container.innerHTML = vendorsHTML || `<p style="grid-column: 1/-1; text-align:center; padding: 40px; color:var(--text-muted);">Belum ada vendor untuk kategori ani. Stay tuned!</p>`;
         }
 
         function updateUI() {
