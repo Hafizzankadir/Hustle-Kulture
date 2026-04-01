@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hustle Kulture | Brunei Youth Entrepreneurship</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@700;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@700;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     <style>
         :root {
             /* Updated to Yellow Theme */
-            --primary: #FACC15; 
+            --primary: #FACC15;
             --primary-dark: #EAB308;
             --secondary: #000000;
             --bg: #F8FAFC;
@@ -32,17 +36,32 @@
             --text-muted: #94A3B8;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text-main); 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
             overflow-x: hidden;
         }
-        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
         /* Nav */
         nav {
             background: var(--card-bg);
@@ -52,16 +71,55 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 2px solid rgba(0,0,0,0.05);
+            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
         }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo { font-size: 1.5rem; font-weight: 900; color: var(--text-main); display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .logo i { color: var(--primary); }
-        .logo span { color: var(--text-muted); font-weight: 400; }
-        
-        .nav-links { display: flex; gap: 24px; align-items: center; }
-        .nav-link { font-weight: 600; color: var(--text-muted); cursor: pointer; font-size: 0.95rem; text-decoration: none; transition: var(--transition); }
-        .nav-link:hover, .nav-link.active { color: var(--text-main); border-bottom: 3px solid var(--primary); }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-main);
+            border-bottom: 3px solid var(--primary);
+        }
 
         .level-badge {
             background: var(--text-main);
@@ -76,12 +134,36 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        section { display: none; padding: 40px 0; }
-        section.active { display: block; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        section {
+            display: none;
+            padding: 40px 0;
+        }
+
+        section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         /* Quest Cards */
-        .quest-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
+        .quest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
         .quest-card {
             background: var(--card-bg);
             border-radius: var(--radius-lg);
@@ -93,10 +175,23 @@
             cursor: pointer;
             overflow: hidden;
         }
-        .quest-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-        .quest-card.locked { opacity: 0.6; filter: grayscale(1); cursor: not-allowed; }
-        .quest-card.completed { border-color: var(--primary); background: linear-gradient(to bottom right, var(--card-bg), #fffbeb); }
-        
+
+        .quest-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .quest-card.locked {
+            opacity: 0.6;
+            filter: grayscale(1);
+            cursor: not-allowed;
+        }
+
+        .quest-card.completed {
+            border-color: var(--primary);
+            background: linear-gradient(to bottom right, var(--card-bg), #fffbeb);
+        }
+
         .level-indicator {
             position: absolute;
             top: 0;
@@ -134,8 +229,17 @@
             flex-direction: column;
             position: relative;
         }
-        .price-card:hover { border-color: var(--primary); transform: translateY(-5px); }
-        .price-card.featured { border: 2px solid var(--primary); background: #fffdf5; }
+
+        .price-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .price-card.featured {
+            border: 2px solid var(--primary);
+            background: #fffdf5;
+        }
+
         .featured-tag {
             position: absolute;
             top: -15px;
@@ -149,6 +253,7 @@
             font-weight: 800;
             text-transform: uppercase;
         }
+
         .price-row {
             display: flex;
             justify-content: space-between;
@@ -156,23 +261,131 @@
             border-bottom: 1px solid #f1f5f9;
             align-items: center;
         }
-        .price-row:last-child { border-bottom: none; }
-        .price-val { font-weight: 800; color: var(--text-main); font-size: 1.1rem; }
-        .feature-list { list-style: none; margin-top: 15px; }
-        .feature-list li { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-        .feature-list li i { color: var(--primary-dark); font-size: 0.8rem; }
 
-        /* Interactive Floor Plan */
-        .map-container {
-            background: #f1f5f9;
-            border-radius: var(--radius-lg);
-            height: 350px;
-            position: relative;
-            margin: 20px 0;
-            border: 2px dashed #cbd5e1;
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 20px 20px;
+        .price-row:last-child {
+            border-bottom: none;
         }
+
+        .price-val {
+            font-weight: 800;
+            color: var(--text-main);
+            font-size: 1.1rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .feature-list li {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-list li i {
+            color: var(--primary-dark);
+            font-size: 0.8rem;
+        }
+
+        /* REORGANIZED: Spotlight Section */
+        .spotlight-wrapper {
+            margin-top: 80px;
+            padding: 60px 0;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .spotlight-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .spotlight-header span {
+            color: var(--primary-dark);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.75rem;
+        }
+
+        .spotlight-card {
+            background: var(--text-main);
+            color: white;
+            border-radius: 30px;
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            align-items: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spotlight-card::before {
+            content: "\f10d";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: 40px;
+            font-size: 12rem;
+            opacity: 0.05;
+            color: white;
+        }
+
+        .spotlight-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .spotlight-img {
+            width: 280px;
+            height: 280px;
+            border-radius: 24px;
+            border: 6px solid var(--primary);
+            object-fit: cover;
+            background: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(-3deg);
+            transition: var(--transition);
+        }
+
+        .spotlight-card:hover .spotlight-img {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .spotlight-content {
+            z-index: 1;
+        }
+
+        .alumni-tag {
+            background: var(--primary);
+            color: var(--text-main);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .spotlight-quote {
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 25px;
+            font-style: italic;
+            color: #f1f5f9;
+        }
+
         .map-stall {
             position: absolute;
             width: 60px;
@@ -187,10 +400,20 @@
             font-weight: 800;
             cursor: pointer;
             transition: var(--transition);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
-        .map-stall:hover { background: var(--primary); color: var(--text-main); transform: scale(1.15) rotate(2deg); z-index: 10; }
-        .map-stall span { font-size: 0.6rem; margin-top: 2px; }
+
+        .map-stall:hover {
+            background: var(--primary);
+            color: var(--text-main);
+            transform: scale(1.15) rotate(2deg);
+            z-index: 10;
+        }
+
+        .map-stall span {
+            font-size: 0.6rem;
+            margin-top: 2px;
+        }
 
         .btn {
             padding: 12px 24px;
@@ -203,13 +426,24 @@
             gap: 10px;
             transition: var(--transition);
         }
-        .btn-primary { background: var(--primary); color: var(--text-main); }
-        .btn-primary:hover { background: var(--primary-dark); box-shadow: 0 8px 15px rgba(250, 204, 21, 0.4); }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--text-main);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 8px 15px rgba(250, 204, 21, 0.4);
+        }
 
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(8px);
             z-index: 2000;
@@ -217,6 +451,7 @@
             justify-content: center;
             padding: 20px;
         }
+
         .modal {
             background: var(--card-bg);
             border-radius: var(--radius-lg);
@@ -239,10 +474,12 @@
             transform: translateY(200%);
             transition: transform 0.3s;
             z-index: 9999;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .hidden { display: none !important; }
+        .hidden {
+            display: none !important;
+        }
 
         /* Certificate Styles */
         .cert-container {
@@ -252,21 +489,166 @@
             outline: 5px solid #000;
             text-align: center;
             position: relative;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             max-width: 800px;
             margin: 0 auto;
         }
-        .cert-header { font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 2.2rem; margin-bottom: 20px; color: black; border-bottom: 2px solid black; padding-bottom: 10px; }
-        .cert-body { font-size: 1.1rem; line-height: 1.8; color: #334155; }
-        .cert-name { font-size: 2.5rem; font-weight: 900; color: var(--text-main); margin: 20px 0; text-decoration: underline; text-decoration-color: var(--primary); }
-        .cert-footer { display: flex; justify-content: space-between; margin-top: 50px; align-items: flex-end; }
-        .signature { border-top: 2px solid #64748B; width: 180px; padding-top: 10px; font-weight: 700; font-size: 0.8rem; }
-        .cert-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.05; font-size: 8rem; pointer-events: none; }
-        
+
+        .cert-header {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 900;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: black;
+            border-bottom: 2px solid black;
+            padding-bottom: 10px;
+        }
+
+        .cert-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #334155;
+        }
+
+        .cert-name {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--text-main);
+            margin: 20px 0;
+            text-decoration: underline;
+            text-decoration-color: var(--primary);
+        }
+
+        .cert-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            align-items: flex-end;
+        }
+
+        .signature {
+            border-top: 2px solid #64748B;
+            width: 180px;
+            padding-top: 10px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .cert-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.05;
+            font-size: 8rem;
+            pointer-events: none;
+        }
+
+        /* Wizard & Tracker Styles */
+        .wizard-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .wizard-steps::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e2e8f0;
+            z-index: 1;
+        }
+
+        .wizard-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border: 2px solid #cbd5e1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 5px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #64748b;
+            transition: all 0.3s;
+        }
+
+        .wizard-step.active .step-circle {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--text-main);
+        }
+
+        .wizard-step.completed .step-circle {
+            border-color: #10b981;
+            background: #10b981;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .wizard-step.active .step-label {
+            color: var(--text-main);
+        }
+
+        .wizard-pane {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .wizard-pane.active {
+            display: block;
+        }
+
         /* Highlight text color */
-        .text-primary { color: var(--primary-dark) !important; }
+        .text-primary {
+            color: var(--primary-dark) !important;
+        }
+
+        @media (max-width: 992px) {
+            .spotlight-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+                padding: 40px 20px;
+            }
+
+            .spotlight-visual {
+                order: -1;
+            }
+
+            .spotlight-img {
+                width: 200px;
+                height: 200px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <div id="toast"></div>
@@ -277,14 +659,17 @@
                 <i class="fas fa-rocket"></i> HUSTLE<span>KULTURE</span>
             </div>
             <div class="nav-links">
-                <a class="nav-link active" data-page="home" onclick="navigateTo('home')">Utama</a>
-                <a class="nav-link" data-page="learning" onclick="navigateTo('learning')">Quest Map</a>
+                <a class="nav-link active" data-page="home" id="nav-home" onclick="navigateTo('home')">Utama</a>
+                <a class="nav-link hidden" data-page="learning" id="nav-learning" onclick="navigateTo('learning')">Quest Map</a>
+                <a class="nav-link hidden" data-page="builder" id="nav-builder" onclick="navigateTo('builder')">Builder</a>
                 <a class="nav-link" data-page="events" onclick="navigateTo('events')">Events</a>
                 <a class="nav-link" data-page="marketing" onclick="navigateTo('marketing')">Vendors</a>
-                <a class="nav-link" data-page="pricing" onclick="navigateTo('pricing')">Harga</a>
+                <a class="nav-link hidden" data-page="mentors" id="nav-mentors" onclick="navigateTo('mentors')">Mentors</a>
+                <a class="nav-link" data-page="pricing" id="nav-pricing" onclick="navigateTo('pricing')">Harga</a>
             </div>
-            <div id="user-stats" class="hidden" style="display:flex; gap:15px; align-items:center;">
-                <div class="level-badge" id="rank-badge"><i class="fas fa-medal"></i> <span id="user-rank-label">PELAJAR</span></div>
+            <div id="user-stats" class="hidden" style="display:none; gap:15px; align-items:center;">
+                <div class="level-badge" id="rank-badge"><i class="fas fa-medal"></i> <span
+                        id="user-rank-label">PELAJAR</span></div>
                 <div style="font-weight: 800; color:var(--text-main)" id="xp-display">0 XP</div>
             </div>
             <button id="auth-btn" class="btn btn-primary" onclick="openModal('auth-modal')">Masuk Log</button>
@@ -293,20 +678,166 @@
 
     <!-- Page: Home -->
     <section id="home" class="active">
-        <div class="container" style="text-align: center; padding: 80px 0;">
-            <div style="display:inline-block; background:rgba(250, 204, 21, 0.15); color:var(--text-main); padding: 8px 20px; border-radius: 99px; font-weight: 700; margin-bottom: 20px; font-size: 0.9rem; border: 1px solid var(--primary);">
-                🇧🇳 Memperkasa Belia Brunei Berbisnes
+        <!-- Public View (Guest) -->
+        <div id="home-public" class="active">
+            <div class="container" style="padding: 80px 0 0 0;">
+                <div style="text-align: center;">
+                    <div
+                        style="display:inline-block; background:rgba(250, 204, 21, 0.15); color:var(--text-main); padding: 8px 10px; border-radius: 99px; font-weight: 700; margin-bottom: 20px; font-size: 0.9rem; border: 1px solid var(--primary);">
+                        🇧🇳 Memperkasa Belia Brunei Berbisnes
+                    </div>
+                    <h1 style="font-size: 3.5rem; margin-bottom: 20px; line-height: 1.1;">Bisnes Kitani, <span
+                            style="background: var(--primary); padding: 0 10px;">Hustle</span> Kitani</h1>
+                    <p style="font-size: 1.25rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 40px;">Brunei's
+                        go-to platform for Gen Z founders. Level up your business skills, earn certificates, and start
+                        selling at school pop-ups.</p>
+                    <div style="display: flex; gap: 20px; justify-content: center;">
+                        <button class="btn btn-primary" onclick="navigateTo('learning')">Liat Quest Map</button>
+                        <button class="btn" style="background:white; border:2px solid var(--text-main);"
+                            onclick="navigateTo('pricing')">Liat Harga</button>
+                    </div>
+                </div>
             </div>
-            <h1 style="font-size: 3.5rem; margin-bottom: 20px; line-height: 1.1;">Bisnes Kitani, <span style="background: var(--primary); padding: 0 10px;">Hustle</span> Kitani</h1>
-            <p style="font-size: 1.25rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 40px;">Brunei's go-to platform for Gen Z founders. Level up your business skills, earn certificates, and start selling at school pop-ups.</p>
-            <div style="display: flex; gap: 20px; justify-content: center;">
-                <button class="btn btn-primary" onclick="navigateTo('learning')">Liat Quest Map</button>
-                <button class="btn" style="background:white; border:2px solid var(--text-main);" onclick="navigateTo('pricing')">Liat Harga</button>
+
+            <!-- Member Spotlight Section -->
+            <div class="spotlight-wrapper">
+                <div class="container">
+                    <div class="spotlight-header">
+                        <span>Inspirasi Lokal</span>
+                        <h2 style="font-size: 2rem; margin-top: 10px;">Kisah Kejayaan Alumni Kitani</h2>
+                    </div>
+
+                    <div class="spotlight-card">
+                        <div class="spotlight-visual">
+                            <div class="spotlight-img">
+                                <i class="fas fa-user-tie fa-6x" style="color:var(--text-main)"></i>
+                            </div>
+                        </div>
+                        <div class="spotlight-content">
+                            <span class="alumni-tag"><i class="fas fa-certificate"></i> Certified Graduate</span>
+                            <div class="spotlight-quote">
+                                "Abiskan Level A-Z di Hustle Kulture tolong Sarah faham profit margin. Now I'm selling 200+
+                                tapak kuda every month!"
+                            </div>
+                            <div style="margin-bottom: 20px;">
+                                <h3 style="font-size: 1.4rem; color: var(--primary);">Sarah H.</h3>
+                                <p style="color: #94a3b8; font-weight: 600;">@sarah_bakes_bn • Founder of Sarah's Treats</p>
+                            </div>
+                            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                                <span class="reward-badge"
+                                    style="background: rgba(255,255,255,0.1); color: var(--primary); border: 1px solid rgba(250,204,21,0.3);">
+                                    <i class="fas fa-star"></i> Elite Founder
+                                </span>
+                                <span class="reward-badge"
+                                    style="background: rgba(255,255,255,0.1); color: var(--primary); border: 1px solid rgba(250,204,21,0.3);">
+                                    <i class="fas fa-rocket"></i> Scale-Up Member
+                                </span>
+                            </div>
+                            <button class="btn btn-primary" style="margin-top: 30px; padding: 10px 20px; font-size: 0.9rem;"
+                                onclick="navigateTo('marketing')">
+                                Liat Directory Vendor <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div
+                        style="margin-top: 60px; display: flex; justify-content: center; gap: 40px; color: var(--text-muted); font-weight: 600; flex-wrap: wrap;">
+                        <span><i class="fas fa-check-circle text-primary"></i> Ngam for MSME</span>
+                        <span><i class="fas fa-check-circle text-primary"></i> Mentor Lokal</span>
+                        <span><i class="fas fa-check-circle text-primary"></i> Fokus Halal</span>
+                    </div>
+                </div>
             </div>
-            <div style="margin-top: 60px; display: flex; justify-content: center; gap: 40px; color: var(--text-muted); font-weight: 600;">
-                <span><i class="fas fa-check-circle text-primary"></i> Ngam for MSME</span>
-                <span><i class="fas fa-check-circle text-primary"></i> Mentor Lokal</span>
-                <span><i class="fas fa-check-circle text-primary"></i> Fokus Halal</span>
+        </div>
+
+        <!-- Dashboard View (Log Out) -->
+        <div id="home-dashboard" class="hidden">
+            <div class="container" style="padding: 40px 0;">
+                <!-- Welcome Banner -->
+                <div style="background: linear-gradient(135deg, var(--primary) 0%, #fde047 100%); padding: 40px; border-radius: 20px; box-shadow: var(--shadow); margin-bottom: 40px; position: relative; overflow: hidden;">
+                    <div style="position: absolute; right: -20px; top: -20px; opacity: 0.1; font-size: 10rem;">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                        <div>
+                            <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Selamat Datang Kembali, <span id="dash-user-name">Usahawan</span>! 🚀</h2>
+                            <p style="font-size: 1.1rem; font-weight: 600; color: var(--text-main); opacity: 0.8;">Siap kan sambung bisnes mu hari ani di <span id="dash-user-district">Brunei</span>?</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.3); min-width: 250px;">
+                            <div style="font-weight: 800; font-size: 1.2rem; margin-bottom: 5px;" id="dash-xp-display">0 XP</div>
+                            <div style="font-size: 0.8rem; font-weight: 700; margin-bottom: 10px;"><i class="fas fa-medal"></i> <span id="dash-rank-display">USAHAWAN MUDA</span></div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; margin-bottom: 4px;">
+                                <span>Peratusan Sijil Nasional</span>
+                                <span id="dash-pct-label">0%</span>
+                            </div>
+                            <div style="height: 6px; background: rgba(0,0,0,0.1); border-radius: 3px; overflow: hidden;">
+                                <div id="dash-progress-fill" style="height: 100%; background: var(--text-main); width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quest-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px;">
+                    <!-- Action: Builder -->
+                    <div class="quest-card action-card" onclick="navigateTo('builder')" style="cursor: pointer; transition: transform 0.3s ease; display: flex; align-items: center; gap: 20px; padding: 25px;">
+                        <div style="font-size: 2rem; color: var(--primary);">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <div>
+                            <h3 style="margin-bottom: 4px;">Business Builder</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Generate strategy AI kitani.</p>
+                        </div>
+                        <i class="fas fa-chevron-right" style="margin-left: auto; opacity: 0.3;"></i>
+                    </div>
+
+                    <!-- Action: Mentors -->
+                    <div class="quest-card action-card" onclick="navigateTo('mentors')" style="cursor: pointer; transition: transform 0.3s ease; display: flex; align-items: center; gap: 20px; padding: 25px;">
+                        <div style="font-size: 2rem; color: var(--primary);">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div>
+                            <h3 style="margin-bottom: 4px;">Mentor Hub</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Consultation with experts.</p>
+                        </div>
+                        <i class="fas fa-chevron-right" style="margin-left: auto; opacity: 0.3;"></i>
+                    </div>
+
+                    <!-- Action: Website Builder -->
+                    <div class="quest-card action-card" onclick="navigateTo('site-builder')" style="cursor: pointer; transition: transform 0.3s ease; display: flex; align-items: center; gap: 20px; padding: 25px; grid-column: span 1.5;">
+                        <div style="font-size: 2rem; color: var(--primary);">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div>
+                            <h3 style="margin-bottom: 4px;">Bina Website Bisnes</h3>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Customize your business page & catalogue.</p>
+                        </div>
+                        <i class="fas fa-chevron-right" style="margin-left: auto; opacity: 0.3;"></i>
+                    </div>
+                </div>
+
+                <!-- EMBEDDED QUEST MAP -->
+                <div style="margin-bottom: 40px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="font-size: 1.5rem;">A-Z Entrepreneur Quest Kitani</h3>
+                        <button id="dash-claim-cert-btn" class="btn btn-primary" style="font-size: 0.75rem; padding: 8px 15px; display: none;" onclick="generateCertificate()">
+                             <i class="fas fa-award"></i> TUNTUT SIJIL
+                        </button>
+                    </div>
+                    <div class="quest-grid" id="dash-quest-container">
+                        <!-- Quests for Dashboard will go here -->
+                    </div>
+                </div>
+
+                <!-- Recent Activity / Saved Blueprints -->
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="font-size: 1.5rem;">Blueprint Terkini</h3>
+                        <button class="btn btn-outline" style="font-size: 0.8rem; padding: 5px 15px;" onclick="navigateTo('builder')">Liat Semua</button>
+                    </div>
+                    <div id="dash-saved-plans" class="quest-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                        <!-- Plans will populate here -->
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -320,37 +851,47 @@
             </div>
 
             <div class="quest-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-                
+
                 <!-- Student Market -->
                 <div class="price-card">
                     <div style="margin-bottom: 25px;">
-                        <span style="background:rgba(0, 0, 0, 0.05); color:var(--text-main); padding:5px 12px; border-radius:99px; font-size:0.75rem; font-weight:800; text-transform: uppercase;">School Level</span>
+                        <span
+                            style="background:rgba(0, 0, 0, 0.05); color:var(--text-main); padding:5px 12px; border-radius:99px; font-size:0.75rem; font-weight:800; text-transform: uppercase;">School
+                            Level</span>
                         <h3 style="font-size: 1.8rem; margin-top:10px;">Student Market</h3>
-                        <p style="color:var(--text-muted); font-size:0.9rem;">Ideal for students starting small in school pop-ups.</p>
+                        <p style="color:var(--text-muted); font-size:0.9rem;">Ideal for students starting small in
+                            school pop-ups.</p>
                     </div>
-                    
+
                     <div class="price-row">
-                        <span style="font-weight:600;">Consultation <small style="display:block; font-weight:400; color:var(--text-muted)">One-time fee</small></span>
+                        <span style="font-weight:600;">Consultation <small
+                                style="display:block; font-weight:400; color:var(--text-muted)">One-time
+                                fee</small></span>
                         <span class="price-val">BND 15</span>
                     </div>
                     <div class="price-row">
-                        <span style="font-weight:600;">Event Fee <small style="display:block; font-weight:400; color:var(--text-muted)">Per school pop-up</small></span>
+                        <span style="font-weight:600;">Event Fee <small
+                                style="display:block; font-weight:400; color:var(--text-muted)">Per school
+                                pop-up</small></span>
                         <span class="price-val">BND 15</span>
                     </div>
 
                     <div style="flex-grow: 1;"></div>
-                    <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:30px;" onclick="showToast('Jom join School Hustle!')">Pilih Plan Student</button>
+                    <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:30px;"
+                        onclick="showToast('Jom join School Hustle!')">Pilih Plan Student</button>
                 </div>
 
                 <!-- Community Access - FEATURED -->
                 <div class="price-card featured">
                     <div class="featured-tag">Paling Popular</div>
                     <div style="margin-bottom: 25px;">
-                        <span style="background:var(--primary); color:var(--text-main); padding:5px 12px; border-radius:99px; font-size:0.75rem; font-weight:800; text-transform: uppercase;">Membership</span>
+                        <span
+                            style="background:var(--primary); color:var(--text-main); padding:5px 12px; border-radius:99px; font-size:0.75rem; font-weight:800; text-transform: uppercase;">Membership</span>
                         <h3 style="font-size: 1.8rem; margin-top:10px;">Community Access</h3>
-                        <p style="color:var(--text-muted); font-size:0.9rem;">Monthly subscription for serious local founders.</p>
+                        <p style="color:var(--text-muted); font-size:0.9rem;">Monthly subscription for serious local
+                            founders.</p>
                     </div>
-                    
+
                     <div style="text-align: center; padding: 15px 0; border-bottom: 1px solid #f1f5f9;">
                         <span style="font-size: 2.5rem; font-weight: 900; color: var(--text-main);">BND 35</span>
                         <span style="color: var(--text-muted);">/bulan</span>
@@ -364,35 +905,479 @@
                     </ul>
 
                     <div style="flex-grow: 1;"></div>
-                    <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:30px;" onclick="showToast('Welcome to the Hustle Community!')">Join Community</button>
+                    <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:30px;"
+                        onclick="openModal('subscribe-modal')">Join Community</button>
                 </div>
 
                 <!-- Youth Market -->
                 <div class="price-card">
                     <div style="margin-bottom: 25px;">
-                        <span style="background:rgba(245, 158, 11, 0.1); color:#D97706; padding:5px 12px; border-radius:99px; font-size:0.75rem; font-weight:800; text-transform: uppercase;">External Level</span>
+                        <span
+                            style="background:rgba(245, 158, 11, 0.1); color:#D97706; padding:5px 12px; border-radius:99px; font-size:0.75rem; font-weight:800; text-transform: uppercase;">External
+                            Level</span>
                         <h3 style="font-size: 1.8rem; margin-top:10px;">Youth Market</h3>
-                        <p style="color:var(--text-muted); font-size:0.9rem;">Expand your business beyond the school gates.</p>
+                        <p style="color:var(--text-muted); font-size:0.9rem;">Expand your business beyond the school
+                            gates.</p>
                     </div>
-                    
+
                     <div class="price-row">
-                        <span style="font-weight:600;">Consultation <small style="display:block; font-weight:400; color:var(--text-muted)">One-time fee</small></span>
+                        <span style="font-weight:600;">Consultation <small
+                                style="display:block; font-weight:400; color:var(--text-muted)">One-time
+                                fee</small></span>
                         <span class="price-val">BND 25</span>
                     </div>
                     <div class="price-row">
-                        <span style="font-weight:600;">Event Fee <small style="display:block; font-weight:400; color:var(--text-muted)">Per external pop-up</small></span>
+                        <span style="font-weight:600;">Event Fee <small
+                                style="display:block; font-weight:400; color:var(--text-muted)">Per external
+                                pop-up</small></span>
                         <span class="price-val">BND 25</span>
                     </div>
 
                     <div style="flex-grow: 1;"></div>
-                    <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:30px; background:var(--text-main); color: var(--primary);" onclick="showToast('Scaling to Youth Market!')">Pilih Plan Youth</button>
+                    <button class="btn btn-primary"
+                        style="width:100%; justify-content:center; margin-top:30px; background:var(--text-main); color: var(--primary);"
+                        onclick="showToast('Scaling to Youth Market!')">Pilih Plan Youth</button>
                 </div>
 
             </div>
 
             <div style="margin-top: 40px; text-align:center; background: #f1f5f9; padding: 20px; border-radius: 15px;">
-                <p style="font-size: 0.85rem; color: var(--text-muted);"><i class="fas fa-info-circle"></i> Bayaran konsultasi adalah <strong>one-time</strong>. Event fee bergantung kepada lokasi pop-up.</p>
+                <p style="font-size: 0.85rem; color: var(--text-muted);"><i class="fas fa-info-circle"></i> Bayaran
+                    konsultasi adalah <strong>one-time</strong>. Event fee bergantung kepada lokasi pop-up.</p>
             </div>
+        </div>
+    </section>
+
+    <!-- Page: Business Plan Builder -->
+    <section id="builder">
+        <div class="container">
+            <!-- 
+              Hustle Kulture: Business Plan Builder
+              - Refined SaaS Aesthetic
+              - Modern Input Grouping
+              - Premium Typography & Spacing
+              - AI Strategy Generation for Brunei Founders
+            -->
+
+            <div class="builder-wrapper"
+                style="max-width: 850px; margin: 40px auto; font-family: 'Inter', system-ui, -apple-system, sans-serif;">
+                <style>
+                    :root {
+                        --hk-yellow: #FACC15;
+                        --hk-black: #0F172A;
+                        --hk-gray-50: #F8FAFC;
+                        --hk-gray-100: #F1F5F9;
+                        --hk-gray-200: #E2E8F0;
+                        --hk-gray-400: #94A3B8;
+                        --hk-gray-600: #475569;
+                        --hk-border: #E2E8F0;
+                    }
+
+                    .builder-card {
+                        background: #ffffff;
+                        border-radius: 16px;
+                        border: 1px solid var(--hk-border);
+                        padding: 32px;
+                        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+                    }
+
+                    .header {
+                        border-bottom: 1px solid var(--hk-gray-100);
+                        padding-bottom: 24px;
+                        margin-bottom: 32px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+
+                    .header h2 {
+                        font-size: 1.5rem;
+                        font-weight: 800;
+                        color: var(--hk-black);
+                        margin: 0;
+                        letter-spacing: -0.025em;
+                    }
+
+                    .header p {
+                        color: var(--hk-gray-600);
+                        font-size: 0.875rem;
+                        margin-top: 4px;
+                    }
+
+                    .form-grid {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 24px;
+                    }
+
+                    .form-group {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+                    }
+
+                    .form-group.full {
+                        grid-column: span 2;
+                    }
+
+                    .form-group label {
+                        font-size: 0.75rem;
+                        font-weight: 600;
+                        color: var(--hk-gray-600);
+                        text-transform: uppercase;
+                        letter-spacing: 0.05em;
+                    }
+
+                    .form-group input,
+                    .form-group select,
+                    .form-group textarea {
+                        padding: 12px 14px;
+                        border-radius: 8px;
+                        border: 1px solid var(--hk-border);
+                        font-family: inherit;
+                        font-size: 0.9375rem;
+                        transition: all 0.2s ease;
+                        color: var(--hk-black);
+                        background: white;
+                    }
+
+                    .form-group input:focus,
+                    .form-group select:focus,
+                    .form-group textarea:focus {
+                        outline: none;
+                        border-color: var(--hk-yellow);
+                        box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.15);
+                    }
+
+                    .form-group textarea {
+                        resize: vertical;
+                        min-height: 100px;
+                    }
+
+                    .actions {
+                        margin-top: 32px;
+                        display: flex;
+                        gap: 12px;
+                    }
+
+                    .builder-btn {
+                        padding: 12px 24px;
+                        border-radius: 8px;
+                        font-weight: 600;
+                        font-size: 0.9375rem;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 8px;
+                    }
+
+                    .builder-btn-primary {
+                        background: var(--hk-black);
+                        color: white !important;
+                        border: none;
+                        flex: 1;
+                    }
+
+                    .builder-btn-primary:hover {
+                        background: #1e293b;
+                        transform: translateY(-1px);
+                    }
+
+                    .builder-btn-primary:disabled {
+                        background: var(--hk-gray-400);
+                        cursor: not-allowed;
+                        transform: none;
+                    }
+
+                    .builder-btn-ghost {
+                        background: transparent;
+                        color: var(--hk-gray-600);
+                        border: 1px solid var(--hk-border);
+                        width: 120px;
+                    }
+
+                    .builder-btn-ghost:hover {
+                        background: var(--hk-gray-50);
+                        color: var(--hk-black);
+                    }
+
+                    /* Output Area Styling */
+                    #plan-result {
+                        display: none;
+                        margin-top: 40px;
+                        border-radius: 12px;
+                        border: 1px solid var(--hk-border);
+                        background: var(--hk-gray-50);
+                        overflow: hidden;
+                    }
+
+                    .result-header {
+                        background: white;
+                        padding: 16px 24px;
+                        border-bottom: 1px solid var(--hk-border);
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+
+                    .result-content {
+                        padding: 32px;
+                        line-height: 1.7;
+                        color: var(--hk-black);
+                        font-size: 1rem;
+                        white-space: pre-line;
+                    }
+
+                    .loading-state {
+                        text-align: center;
+                        padding: 40px;
+                        color: var(--hk-gray-600);
+                    }
+
+                    .spinner {
+                        width: 20px;
+                        height: 20px;
+                        border: 2px solid rgba(0, 0, 0, 0.1);
+                        border-top-color: var(--hk-yellow);
+                        border-radius: 50%;
+                        animation: spin 0.8s linear infinite;
+                    }
+
+                    @keyframes spin {
+                        to {
+                            transform: rotate(360deg);
+                        }
+                    }
+
+                    @media (max-width: 640px) {
+                        .form-grid {
+                            grid-template-columns: 1fr;
+                        }
+
+                        .form-group.full {
+                            grid-column: span 1;
+                        }
+                    }
+
+                    /* Print optimization */
+                    @media print {
+
+                        .actions,
+                        .header,
+                        .builder-card {
+                            border: none;
+                            box-shadow: none;
+                        }
+
+                        body {
+                            background: white;
+                        }
+                    }
+                </style>
+
+                <div class="builder-card">
+                    <div class="header">
+                        <div>
+                            <h2>Business Plan Builder</h2>
+                            <p>Strategic roadmap for Brunei-based startups.</p>
+                        </div>
+                        <div
+                            style="background: var(--hk-yellow); color: var(--hk-black); padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 0.7rem; text-transform: uppercase;">
+                            AI Powered
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Nama Bisnes mu (Venture Name)</label>
+                            <input type="text" id="plan-name" placeholder="e.g. Kedai Digital Mu">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Kategori Bisnes (Market Category)</label>
+                            <select id="plan-category">
+                                <option value="Food & Beverage">Food & Beverage (Makan-makan)</option>
+                                <option value="Consumer Retail">Consumer Retail (Jual-jual)</option>
+                                <option value="Creative Services">Creative Services (Servis Kreatif)</option>
+                                <option value="Education Technology">Education Technology (Edu-tech)</option>
+                                <option value="Community Events">Community Events (Event/Pop-up)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full">
+                            <label>Apa Bisnes Mu Kan Buat? (Product Essence)</label>
+                            <textarea id="plan-desc"
+                                placeholder="Terangkan apa yang special pasal bisnes mu ani? What's the 'Lakas' factor yang buat bisnes mu 'ngam' for Brunei?"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Siapa Kan Membali? (Primary Audience)</label>
+                            <select id="plan-target">
+                                <option value="Gen Z & Local Students">Gen Z & Local Students (Geng Kitani)</option>
+                                <option value="Government Sector Staff">Government Sector Staff (Kerja Gomen)</option>
+                                <option value="Young Urban Professionals">Young Urban Professionals (Working Class)</option>
+                                <option value="Local Home-based Foodies">Local Home-based Foodies (Kaki Makan)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Target Untung (Revenue Target - BND/Month)</label>
+                            <input type="number" id="plan-goal" placeholder="e.g. 1000">
+                        </div>
+
+                        <div class="form-group full"
+                            style="border-top: 1px solid var(--hk-border); padding-top: 24px; margin-top: 10px;">
+                            <label>Gemini API Key (Mesti ada for AI)</label>
+                            <input type="password" id="plan-api-key"
+                                placeholder="Paste your Google AI Studio API Key here to start crafting...">
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button class="builder-btn builder-btn-primary" id="generate-btn" onclick="generatePlan()">
+                            <span id="btn-icon"><i class="fas fa-sparkles"></i></span>
+                            <span id="btn-text">Generate Blueprint</span>
+                        </button>
+                        <button class="builder-btn builder-btn-ghost" style="width: 151px;" onclick="loadDemo()">Try Demo</button>
+                        <button class="builder-btn builder-btn-ghost" onclick="resetForm()">Clear</button>
+                    </div>
+
+                    <div id="plan-result">
+                        <div class="result-header">
+                            <span style="font-weight: 700; font-size: 0.875rem; color: var(--hk-gray-600);">GENERATED
+                                STRATEGY</span>
+                            <button class="builder-btn builder-btn-ghost"
+                                style="padding: 6px 12px; font-size: 0.75rem; width: auto;" onclick="window.print()">
+                                <i class="fas fa-print"></i> Print PDF
+                            </button>
+                        </div>
+                        <div class="result-content" id="result-text"></div>
+                    </div>
+                </div>
+
+                <!-- Recently Generated Blueprints Sidebar/Bottom -->
+                <div class="builder-card" style="margin-top: 30px;">
+                    <div class="header" style="margin-bottom: 20px; border-bottom: none; padding-bottom: 0;">
+                        <div>
+                            <h3>Recently Generated Blueprints</h3>
+                            <p>History of your saved strategies.</p>
+                        </div>
+                    </div>
+                    <div id="saved-plans-list">
+                        <!-- Plans will be rendered here via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                const apiKey = "";
+
+                async function generatePlan() {
+                    const btn = document.getElementById('generate-btn');
+                    const btnText = document.getElementById('btn-text');
+                    const resultWrapper = document.getElementById('plan-result');
+                    const resultContent = document.getElementById('result-text');
+
+                    const name = document.getElementById('plan-name').value;
+                    const cat = document.getElementById('plan-category').value;
+                    const desc = document.getElementById('plan-desc').value;
+                    const target = document.getElementById('plan-target').value;
+                    const goal = document.getElementById('plan-goal').value || "unspecified";
+
+                    const userApiKey = document.getElementById('plan-api-key').value;
+                    const activeApiKey = userApiKey || apiKey;
+
+                    if (!name || !desc) {
+                        showToast("Required: Please provide a name and description.");
+                        return;
+                    }
+
+                    if (!activeApiKey) {
+                        showToast("Required: Please enter your Google Gemini API Key.");
+                        return;
+                    }
+
+                    // UI Loading
+                    btn.disabled = true;
+                    btnText.innerText = 'Crafting Strategy...';
+                    resultWrapper.style.display = 'block';
+                    resultContent.innerHTML = `<div class="loading-state">
+                        <div class="spinner" style="margin: 0 auto 16px;"></div>
+                        <p style="font-size: 0.9rem;">Synthesizing market data for "${name}"...</p>
+                    </div>`;
+
+                    const systemPrompt = `You are a startup architect for Hustle Kulture Brunei. 
+                    You provide high-level, actionable business strategies. 
+                    Tone: Professional, expert, with local Brunei cultural nuances (mentioning local banking, events, and social habits).`;
+
+                    const userQuery = `Venture Strategy Request for "${name}", a ${cat} startup.
+                    Core Product: ${desc}
+                    Audience: ${target}
+                    Revenue Goal: BND ${goal}
+                    
+                    Format the output clearly:
+                    1. EXECUTIVE SUMMARY
+                    2. SWOT ANALYSIS (Local Context)
+                    3. MARKETING CHANNELS (IG/TikTok/Pop-ups)
+                    4. FINANCIAL PATHWAY (Reaching BND ${goal})
+                    5. 30-DAY EXECUTION ROADMAP`;
+
+                    const fetchWithRetry = async (url, options, retries = 5, backoff = 1000) => {
+                        try {
+                            const response = await fetch(url, options);
+                            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                            return await response.json();
+                        } catch (error) {
+                            if (retries > 0) {
+                                await new Promise(resolve => setTimeout(resolve, backoff));
+                                return fetchWithRetry(url, options, retries - 1, backoff * 2);
+                            }
+                            throw error;
+                        }
+                    };
+
+                    try {
+                        const result = await fetchWithRetry(
+                            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${activeApiKey}`,
+                            {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    contents: [{ parts: [{ text: userQuery }] }],
+                                    systemInstruction: { parts: [{ text: systemPrompt }] }
+                                })
+                            }
+                        );
+
+                        const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                        if (text) {
+                            try {
+                                resultContent.innerHTML = marked.parse(text);
+                            } catch (e) {
+                                resultContent.innerText = text; // fallback
+                            }
+                            resultWrapper.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                            resultContent.innerText = "Error: Mentors are currently offline. Try again.";
+                        }
+                    } catch (error) {
+                        resultContent.innerText = "Connection error. Please try again.";
+                    } finally {
+                        btn.disabled = false;
+                        btnText.innerText = 'Regenerate Blueprint';
+                    }
+                }
+
+                function resetForm() {
+                    document.getElementById('plan-name').value = '';
+                    document.getElementById('plan-desc').value = '';
+                    document.getElementById('plan-goal').value = '';
+                    document.getElementById('plan-api-key').value = '';
+                    document.getElementById('plan-result').style.display = 'none';
+                }
+            </script>
         </div>
     </section>
 
@@ -402,14 +1387,21 @@
             <div style="display:flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
                 <div>
                     <h2 style="font-size: 2.2rem;">A-Z Entrepreneur Quest</h2>
-                    <p style="color:var(--text-muted)">Abiskan levels untuk dapat National Youth Founder Certificate!</p>
+                    <p style="color:var(--text-muted)">Abiskan levels untuk dapat National Youth Founder Certificate!
+                    </p>
                 </div>
                 <div id="map-progress" style="text-align: right;">
-                    <div style="font-weight: 800; margin-bottom: 8px;">Progress Nasional: <span id="pct-label" style="color:var(--text-main)">0%</span></div>
-                    <div style="width: 250px; height: 12px; background: #E2E8F0; border-radius: 6px; overflow: hidden; border: 1px solid #cbd5e1;">
-                        <div id="progress-fill" style="width: 0%; height: 100%; background: var(--primary); transition: 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);"></div>
+                    <div style="font-weight: 800; margin-bottom: 8px;">Progress Nasional: <span id="pct-label"
+                            style="color:var(--text-main)">0%</span></div>
+                    <div
+                        style="width: 250px; height: 12px; background: #E2E8F0; border-radius: 6px; overflow: hidden; border: 1px solid #cbd5e1;">
+                        <div id="progress-fill"
+                            style="width: 0%; height: 100%; background: var(--primary); transition: 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);">
+                        </div>
                     </div>
-                    <button id="claim-cert-btn" class="btn btn-primary" style="margin-top: 15px; font-size: 0.8rem; background: var(--text-main); color: var(--primary); display: none;" onclick="generateCertificate()">
+                    <button id="claim-cert-btn" class="btn btn-primary"
+                        style="margin-top: 15px; font-size: 0.8rem; background: var(--text-main); color: var(--primary); display: none;"
+                        onclick="generateCertificate()">
                         <i class="fas fa-award"></i> TUNTUT SIJIL NASIONAL
                     </button>
                 </div>
@@ -425,12 +1417,16 @@
     <section id="events">
         <div class="container">
             <h2 style="font-size: 2.2rem; margin-bottom: 10px;">Event & Bootcamp</h2>
-            <p style="color:var(--text-muted); margin-bottom: 30px;">School workshops and pop-up markets di serata 4 daerah.</p>
-            
-            <div style="display:flex; gap:12px; margin-bottom: 40px; background: white; padding: 8px; border-radius: 15px; width: fit-content; box-shadow: var(--shadow);">
+            <p style="color:var(--text-muted); margin-bottom: 30px;">School workshops and pop-up markets di serata 4
+                daerah.</p>
+
+            <div
+                style="display:flex; gap:12px; margin-bottom: 40px; background: white; padding: 8px; border-radius: 15px; width: fit-content; box-shadow: var(--shadow);">
                 <button class="btn btn-primary" id="btn-bootcamp" onclick="filterEvents('bootcamp')">Workshop</button>
-                <button class="btn" style="background:transparent" id="btn-popup" onclick="filterEvents('popup')">Pop-up Markets</button>
-                <button class="btn" style="background:transparent" id="btn-meetup" onclick="filterEvents('meetup')">Networking</button>
+                <button class="btn" style="background:transparent" id="btn-popup" onclick="filterEvents('popup')">Pop-up
+                    Markets</button>
+                <button class="btn" style="background:transparent" id="btn-meetup"
+                    onclick="filterEvents('meetup')">Networking</button>
             </div>
 
             <div class="quest-grid" id="event-container">
@@ -439,13 +1435,118 @@
         </div>
     </section>
 
-    <!-- Page: Marketing -->
+    <!-- Page: Marketing / Vendors -->
     <section id="marketing">
         <div class="container">
             <h2 style="font-size: 2.2rem;">Youth Vendor Directory</h2>
-            <p style="color:var(--text-muted); margin-bottom: 30px;">Support local student entrepreneurs and MSMEs kitani.</p>
-            <div class="quest-grid" id="market-container">
+            <p style="color:var(--text-muted); margin-bottom: 30px;">Support local student entrepreneurs and MSMEs
+                kitani.</p>
+
+            <h3 style="margin-bottom:20px; font-size:1.2rem; display:flex; align-items:center; gap:10px;"><i
+                    class="fas fa-store text-primary"></i> Active Stalls</h3>
+            <div class="quest-grid" id="market-container" style="margin-bottom:60px;">
                 <!-- Injected -->
+            </div>
+
+            <!-- Alumni Circle Feature -->
+            <div style="background: white; border-radius: var(--radius-lg); padding: 40px; border: 1px solid #e2e8f0;">
+                <h3 style="margin-bottom:10px; font-size:1.5rem;"><i class="fas fa-graduation-cap text-primary"></i>
+                    Alumni Circle</h3>
+                <p style="color:var(--text-muted); margin-bottom:25px;">Meet the founders who have completed the full HK
+                    A-Z Quest and are now scaling in the Brunei market.</p>
+                <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap:20px;"
+                    id="alumni-container">
+                    <!-- Sample Alumni -->
+                    <div
+                        style="background:#f8fafc; padding:20px; border-radius:15px; text-align:center; border:1px solid #f1f5f9;">
+                        <div
+                            style="width:60px; height:60px; background:var(--primary); border-radius:50%; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-weight:900;">
+                            HK</div>
+                        <h4 style="font-size:0.95rem;">Dani Ahmad</h4>
+                        <span class="alumni-badge"
+                            style="background: var(--primary); color: var(--text-main); padding: 2px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: 900; text-transform: uppercase;">Class
+                            of 2023</span>
+                        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:8px;">Founder of 'Makan Fresh
+                            BN'</p>
+                    </div>
+                    <div
+                        style="background:#f8fafc; padding:20px; border-radius:15px; text-align:center; border:1px solid #f1f5f9;">
+                        <div
+                            style="width:60px; height:60px; background:var(--primary); border-radius:50%; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-weight:900;">
+                            HK</div>
+                        <h4 style="font-size:0.95rem;">Liyana J.</h4>
+                        <span class="alumni-badge"
+                            style="background: var(--primary); color: var(--text-main); padding: 2px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: 900; text-transform: uppercase;">Class
+                            of 2024</span>
+                        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:8px;">Founder of 'CraftyBrunei'
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page: Mentor Hub -->
+    <section id="mentors">
+        <div class="container">
+            <div style="text-align:center; padding: 40px 0;">
+                <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Mentor Hub Kitani</h1>
+                <p style="color:var(--text-muted); max-width: 600px; margin: 0 auto 30px;">Cari mentor yang 'ngam' untuk help you grow your business. Instead of boring fees, kitani "belanja" them coffee to start the consultation!</p>
+            </div>
+
+            <div id="mentor-container" class="quest-grid">
+                <!-- Mentors will be rendered here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Page: Website Builder -->
+    <section id="site-builder">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Bina Website Bisnes Mu</h2>
+                <p style="color:var(--text-muted)">Customize your catalogue and publish it to the directory!</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start;">
+                <!-- Builder Form -->
+                <div class="quest-card" style="padding: 30px;">
+                    <h3 style="margin-bottom: 20px;"><i class="fas fa-edit"></i> Edit Bisnes Details</h3>
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div>
+                            <label style="font-weight:700; font-size: 0.8rem; display:block; margin-bottom:5px;">NAMA BISNES</label>
+                            <input type="text" id="site-name" oninput="updateLivePreview()" placeholder="Contoh: Kedai Kopi Kita" style="width: 100%; padding:12px; border-radius:8px; border:2px solid #eee;">
+                        </div>
+                        <div>
+                            <label style="font-weight:700; font-size: 0.8rem; display:block; margin-bottom:5px;">BIO RINGKAS (Mixed English/Brunei Malay bisai!)</label>
+                            <textarea id="site-bio" oninput="updateLivePreview()" rows="3" placeholder="Explain what makes your business unique..." style="width: 100%; padding:12px; border-radius:8px; border:2px solid #eee;"></textarea>
+                        </div>
+                        <div>
+                            <label style="font-weight:700; font-size: 0.8rem; display:block; margin-bottom:5px;">KATEGORI</label>
+                            <select id="site-cat" onchange="updateLivePreview()" style="width: 100%; padding:12px; border-radius:8px; border:2px solid #eee;">
+                                <option>Food & Beverages</option>
+                                <option>Retail & Fashion</option>
+                                <option>Services & Agency</option>
+                                <option>Tech & Digital</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-weight:700; font-size: 0.8rem; display:block; margin-bottom:5px;">CATALOGUE / PRODUCTS (Satu baris satu product)</label>
+                            <textarea id="site-products" oninput="updateLivePreview()" rows="4" placeholder="Product A - BND 5&#10;Product B - BND 10" style="width: 100%; padding:12px; border-radius:8px; border:2px solid #eee;"></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="saveWebsite()" style="width: 100%; justify-content: center; margin-top: 10px;">
+                            <i class="fas fa-save"></i> Simpan & Publish ke Directory
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Preview -->
+                <div id="site-preview" class="quest-card" style="padding: 0; min-height: 500px; background: #fff; border: 1px solid #e2e8f0; overflow: hidden; display: flex; flex-direction: column;">
+                    <div style="background: var(--text-main); color: var(--primary); padding: 10px 20px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Website Preview (Live)</div>
+                    <div id="preview-content" style="padding: 40px; text-align: center; flex-grow: 1;">
+                        <!-- Injected via updateLivePreview -->
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -461,30 +1562,254 @@
         <div class="modal" style="max-width: 900px; padding: 20px; background: #334155;">
             <div id="cert-content"></div>
             <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
-                <button class="btn" style="background:white; color:black;" onclick="window.print()"><i class="fas fa-print"></i> Simpan PDF</button>
+                <button class="btn" style="background:white; color:black;" onclick="window.print()"><i
+                        class="fas fa-print"></i> Simpan PDF</button>
                 <button class="btn btn-primary" onclick="closeModals()">Tutup</button>
             </div>
         </div>
     </div>
 
+    <!-- Student Registration (WITH Parent Consent Step) -->
     <div id="auth-modal" class="modal-overlay" onclick="closeModals(event)">
-        <div class="modal">
-            <h2 style="margin-bottom: 10px;">Selamat Datang!</h2>
-            <p style="color:var(--text-muted); margin-bottom: 25px;">Jom start journey bisnes mu di Brunei hari ani.</p>
-            <div style="margin-bottom: 15px;">
-                <label style="font-weight:700; font-size: 0.8rem; display:block; margin-bottom:5px;">NAMA PENUH (IKUT IC)</label>
-                <input type="text" id="user-name" placeholder="E.g. Ahmad Dani" style="width: 100%; padding:14px; border-radius:10px; border:2px solid #eee; outline:none;">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h2 style="margin-bottom: 10px;">Pendaftaran Program Hustle</h2>
+            <p style="color:var(--text-muted); margin-bottom: 20px;">Lengkapkan butiran awda dan penjaga (Parent).</p>
+
+            <div class="wizard-steps" id="reg-wizard-steps">
+                <div class="wizard-step active" id="reg-nav-1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Pelajar & Ibubapa</div>
+                </div>
+                <div class="wizard-step" id="reg-nav-2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Kebenaran (Consent)</div>
+                </div>
+                <div class="wizard-step" id="reg-nav-3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Pembayaran</div>
+                </div>
             </div>
-            <div style="margin-bottom: 20px;">
-                <label style="font-weight:700; font-size: 0.8rem; display:block; margin-bottom:5px;">DAERAH</label>
-                <select id="user-district" style="width: 100%; padding:14px; border-radius:10px; border:2px solid #eee;">
-                    <option>Brunei-Muara</option>
-                    <option>Tutong</option>
-                    <option>Belait</option>
-                    <option>Temburong</option>
-                </select>
+
+            <!-- REG STEP 1: Details -->
+            <div class="wizard-pane active" id="reg-pane-1">
+                <h4 style="margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">Butiran Pelajar</h4>
+                <div style="margin-bottom: 10px;">
+                    <label style="font-weight:700; font-size: 0.75rem; display:block; margin-bottom:3px;">NAMA
+                        PENUH</label>
+                    <input type="text" id="user-name" placeholder="E.g. Ahmad Dani"
+                        style="width: 100%; padding:10px; border-radius:8px; border:2px solid #eee; outline:none;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="font-weight:700; font-size: 0.75rem; display:block; margin-bottom:3px;">DAERAH</label>
+                    <select id="user-district"
+                        style="width: 100%; padding:10px; border-radius:8px; border:2px solid #eee;">
+                        <option>Brunei-Muara</option>
+                        <option>Tutong</option>
+                        <option>Belait</option>
+                        <option>Temburong</option>
+                    </select>
+                </div>
+
+                <h4 style="margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">Maklumat Ibubapa /
+                    Penjaga</h4>
+                <div style="margin-bottom: 10px;">
+                    <label style="font-weight:700; font-size: 0.75rem; display:block; margin-bottom:3px;">NAMA
+                        IBUBAPA/PENJAGA</label>
+                    <input type="text" placeholder="E.g. Hj Awang"
+                        style="width: 100%; padding:10px; border-radius:8px; border:2px solid #eee; outline:none;">
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label style="font-weight:700; font-size: 0.75rem; display:block; margin-bottom:3px;">EMAIL
+                        IBUBAPA</label>
+                    <input type="email" placeholder="parent@gmail.com"
+                        style="width: 100%; padding:10px; border-radius:8px; border:2px solid #eee; outline:none;">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="font-weight:700; font-size: 0.75rem; display:block; margin-bottom:3px;">NO.
+                        TELEFON</label>
+                    <input type="text" placeholder="+673 8XXXXXX"
+                        style="width: 100%; padding:10px; border-radius:8px; border:2px solid #eee; outline:none;">
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; justify-content:center;"
+                    onclick="nextRegStep(2)">Seterusnya <i class="fas fa-arrow-right"></i></button>
+                <div style="text-align:center; margin-top:15px;">
+                    <a href="#" onclick="skipToLogin()"
+                        style="color:var(--text-muted); font-size:0.85rem; text-decoration:underline;">Sudah daftar? Log
+                        Masuk terus.</a>
+                </div>
             </div>
-            <button class="btn btn-primary" style="width: 100%; justify-content:center;" onclick="login()">Jom Start!</button>
+
+            <!-- REG STEP 2: Parent Consent -->
+            <div class="wizard-pane" id="reg-pane-2">
+                <div
+                    style="background:#fffdf5; border:1px solid var(--primary); padding:15px; border-radius:10px; margin-bottom:15px; font-size:0.85rem; line-height:1.6;">
+                    <strong>Maklumat Program (Hustle Kulture):</strong><br>
+                    - Tarikh: (TBA ikut Sekolah)<br>
+                    - Yuran: <strong>BND 30.00</strong> (Termasuk akses sistem & sijil)<br>
+                    - Polisi Data: Data sulit akan disimpan selamat. Gambar anak damit mungkin dipakai untuk
+                    promosi.<br>
+                    - Polisi Risiko: Pihak program tidak bertanggungjawab atas kerosakan harta peribadi.
+                </div>
+
+                <div
+                    style="margin-bottom: 20px; background:#f8fafc; padding:15px; border-radius:10px; border:1px solid #e2e8f0;">
+                    <label style="display:flex; align-items:flex-start; gap:10px; cursor:pointer;">
+                        <input type="checkbox" id="reg-consent-check"
+                            style="width:20px; height:20px; accent-color:var(--primary); margin-top:2px;">
+                        <span style="font-size:0.85rem; font-weight:600;">Saya (Ibubapa/Penjaga) bersetuju dengan syarat
+                            di atas dan membenarkan anak saya menyertai program ini.</span>
+                    </label>
+                </div>
+
+                <div style="display:flex; gap:10px;">
+                    <button class="btn"
+                        style="background:#f1f5f9; color:var(--text-main); width:40%; justify-content:center;"
+                        onclick="nextRegStep(1)">Kembali</button>
+                    <button class="btn btn-primary" style="width:60%; justify-content:center;"
+                        onclick="validateConsentAndNext()">Sahkan Kebenaran <i class="fas fa-check"></i></button>
+                </div>
+            </div>
+
+            <!-- REG STEP 3: Payment -->
+            <div class="wizard-pane" id="reg-pane-3">
+                <div style="text-align:center; margin-bottom:20px;">
+                    <h3 style="font-size:2rem; margin-bottom:5px;">BND 30.00</h3>
+                    <p style="color:var(--text-muted); font-size:0.85rem;">Yuran Pendaftaran (Sekali Bayar)</p>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-weight:700; font-size: 0.8rem; display:block; margin-bottom:5px;">KAD BANK / BIBD
+                        ONLINE / POCKET</label>
+                    <input type="text" placeholder="XXXX XXXX XXXX XXXX"
+                        style="width: 100%; padding:14px; border-radius:10px; border:2px solid #eee; outline:none;">
+                </div>
+
+                <div style="display:flex; gap:10px;">
+                    <button class="btn"
+                        style="background:#f1f5f9; color:var(--text-main); width:40%; justify-content:center;"
+                        onclick="nextRegStep(2)">Kembali</button>
+                    <button class="btn btn-primary" id="btn-pay-reg"
+                        style="width:60%; justify-content:center; background:#10b981; color:white;"
+                        onclick="processRegistration()">Bayar & Daftar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Community Access Subscription Flow (Login/Registration for Returning Users) -->
+    <div id="subscribe-modal" class="modal-overlay" onclick="closeModals(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <h2 style="margin-bottom: 10px;">Join Hustle Community</h2>
+            <p style="color:var(--text-muted); margin-bottom: 25px;">Akses Private Portal untuk Founders Brunei.</p>
+
+            <div class="wizard-steps" id="sub-wizard-steps">
+                <div class="wizard-step active" id="sub-nav-1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Plan</div>
+                </div>
+                <div class="wizard-step" id="sub-nav-2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Bayaran</div>
+                </div>
+                <div class="wizard-step" id="sub-nav-3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Profile Lengkap</div>
+                </div>
+            </div>
+
+            <!-- SUB STEP 1: Plan Selection & Setup -->
+            <div class="wizard-pane active" id="sub-pane-1">
+                <div style="display:flex; gap:15px; margin-bottom: 20px;">
+                    <div class="sub-plan-card"
+                        style="flex:1; border:2px solid var(--primary); border-radius:10px; padding:15px; text-align:center; cursor:pointer; background:#fffdf5;"
+                        onclick="selectSubPlan('monthly', this)">
+                        <h4 style="margin-bottom:5px;">Bulanan</h4>
+                        <div style="font-size:1.5rem; font-weight:800;">BND 35</div>
+                    </div>
+                    <div class="sub-plan-card"
+                        style="flex:1; border:2px solid #eee; border-radius:10px; padding:15px; text-align:center; cursor:pointer;"
+                        onclick="selectSubPlan('annual', this)">
+                        <h4 style="margin-bottom:5px;">Tahunan</h4>
+                        <div style="font-size:1.5rem; font-weight:800;">BND 300</div>
+                        <div style="font-size:0.7rem; color:#10b981; font-weight:700;">Jimat BND 120!</div>
+                    </div>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label
+                        style="display:flex; align-items:center; gap:10px; font-size:0.85rem; font-weight:600; cursor:pointer;">
+                        <input type="checkbox" id="sub-minor-check"
+                            style="width:18px; height:18px; accent-color:var(--primary);" onchange="toggleSubConsent()">
+                        Saya di bawah 18 tahun (Perlu kebenaran ibubapa)
+                    </label>
+                </div>
+
+                <div id="sub-consent-box"
+                    style="display:none; background:#fffdf5; border:1px solid var(--primary); padding:15px; border-radius:10px; margin-bottom:20px; font-size:0.8rem;">
+                    <strong>Kebenaran Penjaga Diperlukan:</strong><br>
+                    Dengan menekan butang seterusnya, saya sebagai penjaga membenarkan penyertaan berterusan anak saya
+                    dalam komuniti ini dan bersetuju dengan pelan langganan berulang yang dipilih.
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; justify-content:center;"
+                    onclick="nextSubStep(2)">Seterusnya <i class="fas fa-arrow-right"></i></button>
+            </div>
+
+            <!-- SUB STEP 2: Payment Processing -->
+            <div class="wizard-pane" id="sub-pane-2">
+                <div style="text-align:center; margin-bottom:20px;">
+                    <h3 style="font-size:1.8rem; margin-bottom:5px;" id="sub-price-display">BND 35.00</h3>
+                    <p style="color:var(--text-muted); font-size:0.85rem;">Total Pembayaran Langganan</p>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="font-weight:700; font-size: 0.8rem; display:block; margin-bottom:5px;">MAKLUMAT
+                        PEMBAYARAN ONLINE</label>
+                    <input type="text" placeholder="XXXX XXXX XXXX XXXX"
+                        style="width: 100%; padding:14px; border-radius:10px; border:2px solid #eee; outline:none;">
+                </div>
+
+                <div style="display:flex; gap:10px;">
+                    <button class="btn"
+                        style="background:#f1f5f9; color:var(--text-main); width:40%; justify-content:center;"
+                        onclick="nextSubStep(1)">Kembali</button>
+                    <button class="btn btn-primary" id="btn-pay-sub"
+                        style="width:60%; justify-content:center; background:#10b981; color:white;"
+                        onclick="processSubscription()">Bayar & Langgan</button>
+                </div>
+            </div>
+
+            <!-- SUB STEP 3: Profile Completion -->
+            <div class="wizard-pane" id="sub-pane-3">
+                <div style="text-align:center; margin-bottom:20px;">
+                    <i class="fas fa-check-circle fa-3x" style="color:#10b981; margin-bottom:10px;"></i>
+                    <h3>Portal Diaktifkan!</h3>
+                    <p style="color:var(--text-muted); font-size:0.85rem;">Lengkapkan profail untuk Misi Quarterly.</p>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="font-weight:700; font-size: 0.8rem; display:block; margin-bottom:5px;">KATEGORI
+                        BISNES</label>
+                    <select id="sub-biz-cat"
+                        style="width: 100%; padding:14px; border-radius:10px; border:2px solid #eee;">
+                        <option>Food & Beverages</option>
+                        <option>Retail & Fashion</option>
+                        <option>Services & Agency</option>
+                        <option>Tech & Digital</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="font-weight:700; font-size: 0.8rem; display:block; margin-bottom:5px;">Misi Suku Tahun
+                        (Quarterly Challenge)</label>
+                    <div
+                        style="background:#f1f5f9; padding:12px; border-radius:8px; font-size:0.85rem; font-weight:600; color:var(--primary-dark);">
+                        <i class="fas fa-trophy"></i> Dapatkan 10 pelanggan online pertama mu dalam bulan ini!
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" style="width: 100%; justify-content:center;"
+                    onclick="finishSubscription()">Selesai & Masuk Portal <i class="fas fa-rocket"></i></button>
+            </div>
+
         </div>
     </div>
 
@@ -520,12 +1845,20 @@
             { id: "S3", name: "Seni Brunei", cat: "Art", products: ["Traditional Stickers", "Prints"], bio: "Digital artist exploring MIB themes." }
         ];
 
+        const MENTORS = [
+            { id: "M1", name: "Kak Ariffin", role: "Digital Marketing Pro", expertise: "Social Media & Branding", bio: "Ex-Corporate marketing lead turned startup coach.", photo: "fas fa-user-tie" },
+            { id: "M2", name: "Abang Zul", role: "F&B Entrepreneur", expertise: "Operations & Scaling", bio: "Founder of 3 successful local food chains in Brunei.", photo: "fas fa-user-graduate" },
+            { id: "M3", name: "Sister Sarah", role: "FinTech Specialist", expertise: "Cashflow & Bookkeeping", bio: "Helps young founders manage their BND smartly.", photo: "fas fa-user-ninja" }
+        ];
+
         let state = {
             user: null,
             district: "Brunei-Muara",
             xp: 0,
             completed: [],
-            rank: "PELAJAR"
+            rank: "PELAJAR",
+            businessPlans: [],
+            website: null
         };
 
         function init() {
@@ -534,19 +1867,28 @@
             loadState();
         }
 
-        function renderQuests() {
-            const container = document.getElementById('quest-container');
+        function renderQuests(isDashboard = false) {
+            const container = document.getElementById(isDashboard ? 'dash-quest-container' : 'quest-container');
+            if (!container) return;
             container.innerHTML = COURSES.map(c => {
                 const isCompleted = state.completed.includes(c.id);
+                const statusClass = c.status === 'locked' ? 'locked' : (isCompleted ? 'completed' : 'unlocked');
                 return `
-                <div class="quest-card ${c.status} ${isCompleted ? 'completed' : ''}" onclick="startQuest('${c.id}')">
-                    <div class="level-indicator">${c.id}</div>
+                <div class="quest-card ${statusClass}" onclick="${statusClass === 'locked' ? '' : `startQuest('${c.id}')`}" style="${isDashboard ? 'margin-bottom:0;' : ''}">
+                    <div class="level-indicator">LEVEL ${c.id}</div>
                     <i class="fas fa-${c.icon} fa-3x" style="color:${isCompleted ? 'var(--primary-dark)' : 'var(--text-muted)'}; margin-bottom:15px;"></i>
                     <h3 style="font-size: 1.1rem;">${c.title}</h3>
                     <p style="font-size:0.8rem; color:var(--text-muted); margin: 8px 0; height: 40px; overflow:hidden;">${c.desc}</p>
-                    <div style="display:flex; gap:8px;">
-                        <span class="reward-badge"><i class="fas fa-bolt"></i> ${c.xp} XP</span>
-                        <span class="reward-badge"><i class="fas fa-certificate"></i> Cert</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div style="display:flex; gap:8px;">
+                            <span class="reward-badge"><i class="fas fa-bolt"></i> ${c.xp} XP</span>
+                            <span class="reward-badge"><i class="fas fa-certificate"></i> Cert</span>
+                        </div>
+                        ${isDashboard ? `
+                        <button class="btn btn-primary" style="padding: 5px 12px; font-size: 0.7rem;" ${statusClass === 'locked' ? 'disabled' : ''}>
+                             ${isCompleted ? 'Selesai' : 'Liat'}
+                        </button>
+                        ` : ''}
                     </div>
                 </div>
                 `;
@@ -559,7 +1901,7 @@
                 showToast("Abiskan level sebalumnya dulu untuk unlock " + quest.title);
                 return;
             }
-            
+
             const content = document.getElementById('quest-content');
             content.innerHTML = `
                 <div style="text-align:center;">
@@ -584,10 +1926,10 @@
                 state.xp += quest.xp;
                 state.completed.push(id);
             }
-            
+
             const idx = COURSES.findIndex(c => c.id === id);
-            if (COURSES[idx+1]) COURSES[idx+1].status = 'unlocked';
-            
+            if (COURSES[idx + 1]) COURSES[idx + 1].status = 'unlocked';
+
             updateUI();
             closeModals();
             renderQuests();
@@ -598,7 +1940,7 @@
         function generateCertificate() {
             const certContent = document.getElementById('cert-content');
             const date = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-            
+
             certContent.innerHTML = `
                 <div class="cert-container">
                     <div class="cert-watermark">HUSTLE</div>
@@ -651,7 +1993,7 @@
                     <p style="font-size:0.85rem; color:var(--text-muted);"><i class="fas fa-calendar-alt"></i> ${e.date}</p>
                     
                     ${e.hasMap ? `
-                        <div class="map-container">
+                        <div class="map-container" style="background: #f1f5f9; border-radius: var(--radius-lg); height: 350px; position: relative; margin: 20px 0; border: 2px dashed #cbd5e1; background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px;">
                             <div class="map-stall" style="top:30px; left:30px;" onclick="showVendor('S1')">S1 <span>Tech</span></div>
                             <div class="map-stall" style="top:30px; left:110px;" onclick="showVendor('S2')">S2 <span>Bakes</span></div>
                             <div class="map-stall" style="top:110px; left:30px;" onclick="showVendor('S3')">S3 <span>Art</span></div>
@@ -684,18 +2026,145 @@
         }
 
         function navigateTo(pageId) {
+            const restrictedPages = ['learning', 'builder', 'mentors', 'site-builder'];
+            if (restrictedPages.includes(pageId) && !state.user) {
+                showToast("Mesti masuk log dulu kitani! (Login required)");
+                navigateTo('home');
+                return;
+            }
+
             document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             const link = document.querySelector(`[data-page="${pageId}"]`);
             if (link) link.classList.add('active');
             if (pageId === 'marketing') renderMarketplace();
+            if (pageId === 'mentors') renderMentors();
+            if (pageId === 'site-builder') initSiteBuilder();
             window.scrollTo(0, 0);
+        }
+
+        function renderMentors() {
+            const container = document.getElementById('mentor-container');
+            container.innerHTML = MENTORS.map(m => `
+                <div class="quest-card" style="text-align:center;">
+                    <div style="width:80px; height:80px; background:var(--primary); border-radius:50%; margin:0 auto 15px; display:flex; align-items:center; justify-content:center; font-size:2rem; box-shadow: var(--shadow);">
+                        <i class="${m.photo}"></i>
+                    </div>
+                    <h3 style="margin-bottom:5px;">${m.name}</h3>
+                    <p style="font-weight:700; color:var(--primary-dark); font-size:0.8rem; margin-bottom:10px;">${m.role}</p>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:15px; min-height:40px;">Expertise: ${m.expertise}</p>
+                    <button class="btn btn-primary" style="width:100%; justify-content:center; gap:8px;" onclick="initiateConsultation('${m.id}')">
+                        <i class="fas fa-coffee"></i> Belanja Coffee (BND 5)
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function initiateConsultation(id) {
+            const mentor = MENTORS.find(m => m.id === id);
+            const content = document.getElementById('quest-content');
+            content.innerHTML = `
+                <div style="text-align:center;">
+                    <i class="fas fa-mug-hot fa-4x" style="color:var(--primary); margin-bottom:20px;"></i>
+                    <h2>Consult with ${mentor.name}</h2>
+                    <p style="margin: 15px 0; color:var(--text-muted);">Sedia kan "belanja" coffee for 30 mins session? This BND 5 donation goes to the community hub!</p>
+                    
+                    <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:20px; text-align:left; margin-bottom:20px;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                            <span>Hot Latte (Large)</span>
+                            <span style="font-weight:800;">BND 5.00</span>
+                        </div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); border-top:1px solid #eee; pt-10 mt-10">
+                            Book your slot after payment simulation.
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="confirmCoffeePayment('${id}')">Pay & Book Now</button>
+                </div>
+            `;
+            openModal('quest-modal');
+        }
+
+        function confirmCoffeePayment(id) {
+            const mentor = MENTORS.find(m => m.id === id);
+            showToast(`Simulated Payment Success! Booking confirmed with ${mentor.name}.`);
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#FACC15', '#000000'] });
+            
+            const content = document.getElementById('quest-content');
+            content.innerHTML = `
+                <div style="text-align:center;">
+                    <i class="fas fa-check-circle fa-4x" style="color:#10b981; margin-bottom:20px;"></i>
+                    <h2>Mabruk! Slot Confirmed</h2>
+                    <p style="margin: 15px 0; color:var(--text-muted);">You have successfully "belanja" ${mentor.name} a coffee. We will contact you at <strong>${state.user || 'your email'}</strong> for the Zoom/Meet link.</p>
+                    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="closeModals()">Terima Kasih!</button>
+                </div>
+            `;
+        }
+
+        function initSiteBuilder() {
+            if (state.website) {
+                document.getElementById('site-name').value = state.website.name;
+                document.getElementById('site-bio').value = state.website.bio;
+                document.getElementById('site-cat').value = state.website.cat;
+                document.getElementById('site-products').value = state.website.products;
+            }
+            updateLivePreview();
+        }
+
+        function updateLivePreview() {
+            const name = document.getElementById('site-name').value || "Nama Bisnes Mu";
+            const bio = document.getElementById('site-bio').value || "Describe your business here...";
+            const cat = document.getElementById('site-cat').value;
+            const products = document.getElementById('site-products').value.split('\n').filter(p => p.trim());
+
+            const preview = document.getElementById('preview-content');
+            preview.innerHTML = `
+                <div style="text-align:center;">
+                    <div style="width:80px; height:80px; background:var(--primary); border-radius:50%; margin:0 auto 20px; display:flex; align-items:center; justify-content:center;">
+                        <i class="fas fa-rocket fa-2x" style="color:var(--text-main);"></i>
+                    </div>
+                    <h2 style="margin-bottom:10px;">${name}</h2>
+                    <span class="reward-badge" style="background:var(--primary); color:var(--text-main); margin-bottom:20px; display:inline-block;">${cat}</span>
+                    <p style="color:var(--text-muted); margin-bottom:30px; font-style:italic;">"${bio}"</p>
+                    
+                    <div style="text-align:left; background:#f8fafc; padding:20px; border-radius:12px; border:1px solid #e2e8f0;">
+                        <h4 style="margin-bottom:15px; border-bottom:2px solid var(--primary); display:inline-block;">Our Catalogue</h4>
+                        <ul style="list-style:none; padding:0;">
+                            ${products.length > 0 ? products.map(p => {
+                                const parts = p.split(' - ');
+                                return `<li style="padding:8px 0; border-bottom:1px solid #eee; display:flex; justify-content:space-between;">
+                                    <span>${parts[0]}</span> 
+                                    <span style="font-weight:700; color:var(--primary-dark);">${parts[1] || ''}</span>
+                                </li>`;
+                            }).join('') : '<li style="color:#aaa;">No products listed yet</li>'}
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        function saveWebsite() {
+            const name = document.getElementById('site-name').value;
+            const bio = document.getElementById('site-bio').value;
+            const cat = document.getElementById('site-cat').value;
+            const products = document.getElementById('site-products').value;
+
+            if (!name || !bio) {
+                showToast("Isi nama bisnes and bio dulu kitani!");
+                return;
+            }
+
+            state.website = { name, bio, cat, products };
+            saveState();
+            showToast("Website mu berjaya di-publish! Liat di Directory.");
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            renderMarketplace();
         }
 
         function renderMarketplace() {
             const container = document.getElementById('market-container');
-            container.innerHTML = VENDORS.map(v => `
+            let vendorsHTML = VENDORS.map(v => `
                 <div class="quest-card">
                     <div style="height:120px; background:var(--primary); opacity:0.3; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:15px;">
                         <i class="fas fa-store fa-3x" style="color:var(--text-main);"></i>
@@ -706,6 +2175,24 @@
                     <button class="btn btn-outline" style="border:2px solid #eee; width:100%; justify-content:center;" onclick="showVendor('${v.id}')">Liat Kedai</button>
                 </div>
             `).join('');
+
+            if (state.website) {
+                const userSiteHTML = `
+                <div class="quest-card" style="border: 2px solid var(--primary); position:relative;">
+                    <div style="position:absolute; top:-10px; right:10px; background:var(--primary); color:var(--text-main); padding:2px 10px; border-radius:4px; font-size:0.6rem; font-weight:900;">BISNES MU</div>
+                    <div style="height:120px; background:var(--primary); opacity:0.8; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-bottom:15px;">
+                        <i class="fas fa-rocket fa-3x" style="color:var(--text-main);"></i>
+                    </div>
+                    <h3>${state.website.name}</h3>
+                    <p class="reward-badge" style="background:var(--primary); color:var(--text-main);">${state.website.cat}</p>
+                    <p style="font-size:0.8rem; margin:10px 0;">${state.website.bio}</p>
+                    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="navigateTo('site-builder')">Edit Website</button>
+                </div>
+                `;
+                vendorsHTML = userSiteHTML + vendorsHTML;
+            }
+
+            container.innerHTML = vendorsHTML;
         }
 
         function updateUI() {
@@ -716,24 +2203,177 @@
 
             if (pct === 100) {
                 document.getElementById('claim-cert-btn').style.display = 'inline-flex';
+                const dashCertBtn = document.getElementById('dash-claim-cert-btn');
+                if (dashCertBtn) dashCertBtn.style.display = 'inline-flex';
             }
 
             if (state.xp > 400) state.rank = "USAHAWAN MUDA";
             if (state.xp > 1000) state.rank = "ELITE FOUNDER";
             document.getElementById('user-rank-label').innerText = state.rank;
+            
+            // Dashboard population
+            if (state.user) {
+                document.getElementById('dash-user-name').innerText = state.user;
+                document.getElementById('dash-user-district').innerText = state.district;
+                document.getElementById('dash-xp-display').innerText = `${state.xp} XP`;
+                document.getElementById('dash-rank-display').innerText = state.rank;
+                document.getElementById('dash-pct-label').innerText = `${pct}%`;
+                document.getElementById('dash-progress-fill').style.width = `${pct}%`;
+                renderDashboardPlans();
+                renderQuests(true); // Render into dashboard
+            }
+
+            renderSavedPlans();
+        }
+
+        function renderDashboardPlans() {
+            const container = document.getElementById('dash-saved-plans');
+            if (!container) return;
+            if (state.businessPlans.length === 0) {
+                container.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem; text-align:center; padding:20px; grid-column: 1/-1;">Belum ada blueprint disimpan. Cuba "Builder" sekarang!</p>`;
+                return;
+            }
+            container.innerHTML = state.businessPlans.slice(-2).reverse().map((plan, idx) => `
+                <div class="quest-card" style="margin-bottom:0; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <div style="font-weight:800; font-size:0.9rem;">${plan.name}</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted);">${plan.date}</div>
+                    </div>
+                    <button class="btn btn-outline" style="padding:5px 10px; font-size:0.7rem;" onclick="navigateTo('builder'); viewSavedPlan(${state.businessPlans.length - 1 - idx})">Liat</button>
+                </div>
+            `).join('');
         }
 
         function login() {
-            const name = document.getElementById('user-name').value;
-            const dist = document.getElementById('user-district').value;
-            if (!name) return;
+            const name = document.getElementById('user-name').value || "Pelajar Aktif";
+            const dist = document.getElementById('user-district').value || "Brunei-Muara";
             state.user = name;
             state.district = dist;
             document.getElementById('user-stats').classList.remove('hidden');
-            document.getElementById('auth-btn').innerText = 'Keluar Log';
+            const authBtn = document.getElementById('auth-btn');
+            authBtn.innerText = 'Keluar Log';
+            authBtn.onclick = logout;
+
+            document.getElementById('home-public').classList.add('hidden');
+            document.getElementById('home-public').classList.remove('active');
+            document.getElementById('home-dashboard').classList.remove('hidden');
+            document.getElementById('home-dashboard').classList.add('active');
+
+            document.getElementById('nav-learning').classList.add('hidden');
+            document.getElementById('nav-builder').classList.remove('hidden');
+            document.getElementById('nav-mentors').classList.remove('hidden');
+            document.getElementById('nav-pricing').classList.add('hidden');
+
             closeModals();
-            showToast(`Ngam, ${name}! Level A sudah terbuka.`);
+            showToast(`Selesai pendaftaran. Level A dibuka, ${name}!`);
+            updateUI();
             saveState();
+        }
+
+        function logout() {
+            state.user = null;
+            document.getElementById('user-stats').classList.add('hidden');
+            
+            const authBtn = document.getElementById('auth-btn');
+            authBtn.innerText = 'Masuk Log';
+            authBtn.onclick = () => openModal('auth-modal');
+
+            document.getElementById('home-public').classList.remove('hidden');
+            document.getElementById('home-public').classList.add('active');
+            document.getElementById('home-dashboard').classList.add('hidden');
+            document.getElementById('home-dashboard').classList.remove('active');
+
+            document.getElementById('nav-learning').classList.add('hidden');
+            document.getElementById('nav-pricing').classList.remove('hidden');
+
+            navigateTo('home');
+            updateUI();
+            saveState();
+            showToast("Log keluar berjaya. Jumpa lagi!");
+        }
+
+        function skipToLogin() {
+            // Skips registration wizard directly to logged-in state for returning users
+            login();
+        }
+
+        // --- REGISTRATION WIZARD LOGIC ---
+        function nextRegStep(step) {
+            document.querySelectorAll('#auth-modal .wizard-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('#reg-wizard-steps .wizard-step').forEach(s => s.classList.remove('active', 'completed'));
+
+            document.getElementById('reg-pane-' + step).classList.add('active');
+
+            for (let i = 1; i <= 3; i++) {
+                const nav = document.getElementById('reg-nav-' + i);
+                if (i < step) nav.classList.add('completed');
+                if (i === step) nav.classList.add('active');
+            }
+        }
+
+        function validateConsentAndNext() {
+            const consent = document.getElementById('reg-consent-check').checked;
+            if (!consent) {
+                showToast("Sila 'tick' kotak pengesahan kebenaran penjaga dahulu.");
+                return;
+            }
+            nextRegStep(3);
+        }
+
+        function processRegistration() {
+            const btn = document.getElementById('btn-pay-reg');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+            setTimeout(() => {
+                login();
+                btn.innerHTML = 'Bayar & Daftar';
+            }, 1200);
+        }
+
+        // --- SUBSCRIPTION WIZARD LOGIC ---
+        let selectedSubPrice = "BND 35.00";
+
+        function selectSubPlan(type, el) {
+            document.querySelectorAll('.sub-plan-card').forEach(c => {
+                c.style.background = 'white';
+                c.style.border = '2px solid #eee';
+            });
+            el.style.background = '#fffdf5';
+            el.style.border = '2px solid var(--primary)';
+
+            selectedSubPrice = type === 'monthly' ? "BND 35.00" : "BND 300.00";
+            document.getElementById('sub-price-display').innerText = selectedSubPrice;
+        }
+
+        function toggleSubConsent() {
+            const isMinor = document.getElementById('sub-minor-check').checked;
+            document.getElementById('sub-consent-box').style.display = isMinor ? 'block' : 'none';
+        }
+
+        function nextSubStep(step) {
+            document.querySelectorAll('#subscribe-modal .wizard-pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('#sub-wizard-steps .wizard-step').forEach(s => s.classList.remove('active', 'completed'));
+
+            document.getElementById('sub-pane-' + step).classList.add('active');
+
+            for (let i = 1; i <= 3; i++) {
+                const nav = document.getElementById('sub-nav-' + i);
+                if (i < step) nav.classList.add('completed');
+                if (i === step) nav.classList.add('active');
+            }
+        }
+
+        function processSubscription() {
+            const btn = document.getElementById('btn-pay-sub');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking Payment...';
+            setTimeout(() => {
+                nextSubStep(3);
+                btn.innerHTML = 'Bayar & Langgan';
+            }, 1000);
+        }
+
+        function finishSubscription() {
+            closeModals();
+            showToast("Akses Portal Berjaya. Misi baru ditugaskan!");
         }
 
         function saveState() { localStorage.setItem('hk_brunei_save_yellow', JSON.stringify(state)); }
@@ -741,21 +2381,240 @@
             const saved = localStorage.getItem('hk_brunei_save_yellow');
             if (saved) {
                 state = JSON.parse(saved);
+                if (!state.businessPlans) state.businessPlans = [];
                 updateUI();
                 state.completed.forEach(id => {
                     const idx = COURSES.findIndex(c => c.id === id);
-                    if (COURSES[idx+1]) COURSES[idx+1].status = 'unlocked';
+                    if (COURSES[idx + 1]) COURSES[idx + 1].status = 'unlocked';
                 });
                 renderQuests();
                 if (state.user) {
                     document.getElementById('user-stats').classList.remove('hidden');
-                    document.getElementById('auth-btn').innerText = 'Keluar Log';
+                    const authBtn = document.getElementById('auth-btn');
+                    authBtn.innerText = 'Keluar Log';
+                    authBtn.onclick = logout;
+                    
+                    document.getElementById('home-public').classList.add('hidden');
+                    document.getElementById('home-public').classList.remove('active');
+                    document.getElementById('home-dashboard').classList.remove('hidden');
+                    document.getElementById('home-dashboard').classList.add('active');
+
+                    document.getElementById('nav-learning').classList.add('hidden');
+                    document.getElementById('nav-builder').classList.remove('hidden');
+                    document.getElementById('nav-mentors').classList.remove('hidden');
+                    document.getElementById('nav-pricing').classList.add('hidden');
+                } else {
+                    document.getElementById('home-public').classList.remove('hidden');
+                    document.getElementById('home-public').classList.add('active');
+                    document.getElementById('home-dashboard').classList.add('hidden');
+                    document.getElementById('home-dashboard').classList.remove('active');
+
+                    document.getElementById('nav-learning').classList.add('hidden');
+                    document.getElementById('nav-builder').classList.add('hidden');
+                    document.getElementById('nav-mentors').classList.add('hidden');
+                    document.getElementById('nav-pricing').classList.remove('hidden');
                 }
             }
         }
 
+        function renderSavedPlans() {
+            const container = document.getElementById('saved-plans-list');
+            if (!container) return;
+            if (state.businessPlans.length === 0) {
+                container.innerHTML = `<p style="color:var(--text-muted); font-size:0.85rem; text-align:center; padding:20px;">Belum ada blueprint disimpan.</p>`;
+                return;
+            }
+            container.innerHTML = state.businessPlans.map((plan, idx) => `
+                <div style="background:white; border:1px solid var(--hk-border); padding:15px; border-radius:10px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <div style="font-weight:800; font-size:0.9rem;">${plan.name}</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted);">${plan.date}</div>
+                    </div>
+                    <button class="btn btn-outline" style="padding:5px 10px; font-size:0.7rem;" onclick="viewSavedPlan(${idx})">Liat</button>
+                </div>
+            `).join('');
+        }
+
+        function viewSavedPlan(idx) {
+            const plan = state.businessPlans[idx];
+            document.getElementById('plan-name').value = plan.name;
+            document.getElementById('plan-category').value = plan.category;
+            document.getElementById('plan-desc').value = plan.description;
+            document.getElementById('plan-target').value = plan.target;
+            document.getElementById('plan-goal').value = plan.goal;
+            
+            const resultWrapper = document.getElementById('plan-result');
+            const resultContent = document.getElementById('result-text');
+            resultWrapper.style.display = 'block';
+            resultContent.innerHTML = marked.parse(plan.result);
+            window.scrollTo({ top: resultWrapper.offsetTop - 100, behavior: 'smooth' });
+        }
+
+        function resetForm() {
+            document.getElementById('plan-name').value = '';
+            document.getElementById('plan-desc').value = '';
+            document.getElementById('plan-goal').value = '';
+            document.getElementById('plan-result').style.display = 'none';
+        }
+
+        async function loadDemo() {
+            const name = "The Brew Kitani (Example)";
+            const cat = "Food & Beverage";
+            const desc = "A mobile coffee push-cart that uses locally-sourced beans and sustainable bamboo cups. We target office workers in the Gadong area and pop-ups like Bandarku Ceria.";
+            const target = "Young Urban Professionals";
+            const goal = "1,500";
+
+            document.getElementById('plan-name').value = name;
+            document.getElementById('plan-category').value = cat;
+            document.getElementById('plan-desc').value = desc;
+            document.getElementById('plan-target').value = target;
+            document.getElementById('plan-goal').value = goal;
+
+            const demoText = `## 1. THE BIG IDEA (Executive Summary)
+**The "Lakas" Factor**: *The Brew Kitani* is not just coffee; it's a movement! Kitani use mobile push-carts and bamboo cups to save the planet while serving the best local brew. It's "bisai" for the environment and "ngam" for the "ngopi" culture in Brunei.
+
+## 2. THE GOOD & THE TOUGH (SWOT)
+*   **Strengths (Bisai-nya)**: Eco-friendly vibe yang "aesthetic" for IG; very low cost sebab kitani pakai push-cart saja.
+*   **Weaknesses (Payah-nya)**: Hujan or panas can be a problem since we are outside.
+*   **Opportunities (Peluang)**: We can collaborate with school clusters or join huge events like *Brunei December Festival*.
+*   **Threats (Cabaran)**: Big coffee shops are everywhere, so we mesti start strong to catch people's attention.
+
+## 3. GETTING THE WORD OUT (Marketing)
+*   **Instagram & TikTok**: Post "Behind the scenes" video making coffee inside bamboo. Focus on the "vibe" and "local pride". 
+*   **Local Tamu**: Set up stall at *Bandarku Ceria* or *Night Market* Gadong. Direct engagement with people are vital!
+*   **Student Promos**: Offer "Buy 1 Get 1 Free" if they show their student ID card. 
+
+## 4. RULES & HALAL (Legal Basics)
+*   **Registration**: Don't worry, even students can register through the *17 & 7* MSME scheme. Check out *DARe* website for the "senang" way.
+*   **Halal**: Brunei Halal is world-class. Mesti ensure all our milk and beans are certified so people are "yakin" when buying from us.
+
+## 5. 30-DAY HUSTLE (Action Plan)
+*   **Week 1**: Design logo yang cool and find someone who can make the bamboo cups.
+*   **Week 2**: Start an IG countdown. Tease the "Kitani" vibe to make people curious.
+*   **Week 3**: Soft launch at home or at school to get feedback from friends.
+*   **Week 4**: Official launch at *Bandarku Ceria*! Target 100 cups a day to reach that BND 1,500 goal. Lakas kitani!`;
+
+            const resultWrapper = document.getElementById('plan-result');
+            const resultContent = document.getElementById('result-text');
+            resultWrapper.style.display = 'block';
+            resultContent.innerHTML = marked.parse(demoText);
+            
+            showToast("Demo loaded! No API key needed for this example.");
+            window.scrollTo({ top: resultWrapper.offsetTop - 100, behavior: 'smooth' });
+        }
+
+        async function generatePlan() {
+            const btn = document.getElementById('generate-btn');
+            const btnText = document.getElementById('btn-text');
+            const resultWrapper = document.getElementById('plan-result');
+            const resultContent = document.getElementById('result-text');
+
+            const name = document.getElementById('plan-name').value;
+            const cat = document.getElementById('plan-category').value;
+            const desc = document.getElementById('plan-desc').value;
+            const target = document.getElementById('plan-target').value;
+            const goal = document.getElementById('plan-goal').value || "unspecified";
+
+            const userApiKey = document.getElementById('plan-api-key').value;
+            const activeApiKey = userApiKey; // In current setup, require key input
+
+            if (!name || !desc) {
+                showToast("Required: Please provide a name and description.");
+                return;
+            }
+
+            if (!activeApiKey) {
+                showToast("Required: Please enter your Google Gemini API Key.");
+                return;
+            }
+
+            // UI Loading
+            btn.disabled = true;
+            btnText.innerText = 'Crafting Strategy...';
+            resultWrapper.style.display = 'block';
+            resultContent.innerHTML = `<div class="loading-state">
+                <div class="spinner" style="margin: 0 auto 16px;"></div>
+                <p style="font-size: 0.9rem;">Synthesizing market data for "${name}"...</p>
+            </div>`;
+
+            const systemPrompt = `You are a "Startup Kakak/Abang" coach for Hustle Kulture Brunei, helping youth under 18 kickstart their business. 
+            Tone: Friendly, encouraging, and easy to understand (simple business terms). 
+            Language: Use a natural mix of English and Brunei Malay (e.g., use words like "ngam", "bisai", "lakas", "kitani", "mesti", "pikirkan").
+            Be comprehensive but break down complex ideas into simple steps.
+            Always mention local Brunei context: Night markets, school clusters, Bandarku Ceria, and DARe youth programs.
+            Format with clear Markdown headers and bullet points.`;
+
+            const userQuery = `I need a "Business Blueprint" for my startup idea:
+            Venture Name: "${name}"
+            What it is: ${desc}
+            Category: ${cat}
+            Target Friends/Customers: ${target}
+            Goal: BND ${goal} per month
+            
+            Please guide me with this structure:
+            1. **THE BIG IDEA (Executive Summary)**: What's the "Lakas" factor? Explain why this will be "laku" among your friends or the local community.
+            2. **THE GOOD & THE TOUGH (SWOT)**: What are we good at (bisai) and what's going to be hard? Keep it real for a student founder in Brunei.
+            3. **GETTING THE WORD OUT (Marketing)**: How to make it viral on IG/TikTok? Which local "tamu" or school events should we join?
+            4. **RULES & HALAL (Legal Basics)**: Simple steps on how to register (17 & 7) and why Halal is important for us kitani.
+            5. **30-DAY HUSTLE (Action Plan)**: A step-by-step guide for the first month. Make it "senang" to follow around school or home-based work.`;
+
+            try {
+                const response = await fetch(
+                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${activeApiKey}`,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: userQuery }] }],
+                            systemInstruction: { parts: [{ text: systemPrompt }] }
+                        })
+                    }
+                );
+
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.error?.message || "API request failed");
+                }
+
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                
+                if (text) {
+                    resultContent.innerHTML = marked.parse(text);
+                    
+                    // Save to state
+                    state.businessPlans.unshift({
+                        name: name,
+                        category: cat,
+                        description: desc,
+                        target: target,
+                        goal: goal,
+                        result: text,
+                        date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                    });
+                    if (state.businessPlans.length > 5) state.businessPlans.pop(); // Keep last 5
+                    saveState();
+                    renderSavedPlans();
+                    
+                    showToast("Blueprint generated and saved to your profile!");
+                } else {
+                    throw new Error("No response content generated.");
+                }
+            } catch (error) {
+                console.error(error);
+                resultContent.innerHTML = `<div style="color: #ef4444; padding: 20px; text-align:center;">
+                    <i class="fas fa-exclamation-circle fa-2x"></i>
+                    <p style="margin-top:10px;">Error: ${error.message}</p>
+                    <button class="btn btn-outline" style="margin-top:10px;" onclick="generatePlan()">Cuba Lagi</button>
+                </div>`;
+            } finally {
+                btn.disabled = false;
+                btnText.innerText = 'Generate Blueprint';
+            }
+        }
+
         function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function closeModals(e) { 
+        function closeModals(e) {
             if (e && e.target.classList.contains('modal-overlay') || !e) {
                 document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
             }
@@ -770,4 +2629,5 @@
         window.onload = init;
     </script>
 </body>
+
 </html>
